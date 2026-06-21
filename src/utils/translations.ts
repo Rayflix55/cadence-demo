@@ -2,14 +2,14 @@ export type Language = "en" | "hi" | "es" | "fr" | "de";
 
 export const TRANSLATIONS = {
   en: {
-    heroTitle: "Automate Outbound with Extreme Context",
-    heroSubtitle: "Stop sending boring message patterns. Cadence utilizes prediction models and ICP mapping to orchestrate high-response campaigns.",
-    getStartedBtn: "Launch Strategy Desk",
-    viewDemo: "Setup Creative Build",
-    featuresTitle: "Precision Architecture Designed for Yield",
-    featuresSubtitle: "We replaced generic sequence chains with state-of-the-art predictive copywriting.",
-    pricingTitle: "B2B Scale Pricing",
-    pricingSubtitle: "Predict your monthly outreach spend with our dynamic platform simulation.",
+    heroTitle: "Generate Personalized Emails in Seconds",
+    heroSubtitle: "Create sales emails that prospects actually reply to. Stop sending boring, generic templates.",
+    getStartedBtn: "Start Free Now",
+    viewDemo: "Create First Campaign",
+    featuresTitle: "Create Outbound Campaigns that Convert",
+    featuresSubtitle: "We replace generic, spam-like templates with friendly, short emails that get replies.",
+    pricingTitle: "Simple pricing for all teams",
+    pricingSubtitle: "Estimate your monthly output and pricing in one click.",
     predictiveStrategy: "AI Predictive Strategy",
     myCampaigns: "My campaigns",
     creativeBuild: "Creative Build",
@@ -32,12 +32,12 @@ export const TRANSLATIONS = {
     recommendationTitle: "Strategic Recommendation",
     calculatedValue: "Calculated Value",
     features: {
-      f1: "ICP Alignment Matching",
-      f1Desc: "Ensure sales alignment. Any generated assets correspond directly to buyer personas.",
-      f2: "A/B Testing Simulator",
-      f2Desc: "Side-by-side email diagnostics evaluate relative effectiveness.",
-      f3: "AI Contextual Copywriters",
-      f3Desc: "We synthesize prospects' recent posts alongside your core messaging anchors."
+      f1: "Target the Right Customers",
+      f1Desc: "Ensure your sales emails match your specific buyer group perfectly.",
+      f2: "Test Side-by-Side",
+      f2Desc: "Compare and see which email version gets the highest response rates.",
+      f3: "Write with Friendly Context",
+      f3Desc: "We add real customer background information so your emails read like a warm note."
     }
   },
   hi: {

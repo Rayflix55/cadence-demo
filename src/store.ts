@@ -131,7 +131,7 @@ export const useStore = create<AppState>((set, get) => ({
   brandToneInfo: defaultBrandToneInfo,
   campaigns: [],
   currentView: "landing",
-  theme: getStoredState<"light" | "dark">("cadence_theme", "light"),
+  theme: getStoredState<"light" | "dark">("cadence-theme", getStoredState<"light" | "dark">("cadence_theme", "light")),
   language: getStoredState<AppState["language"]>("cadence_language", "en"),
 
   // Local-first specs
@@ -239,7 +239,7 @@ export const useStore = create<AppState>((set, get) => ({
 
   toggleTheme: () => set((state) => {
     const nextTheme = state.theme === "light" ? "dark" : "light";
-    setStoredState("cadence_theme", nextTheme);
+    setStoredState("cadence-theme", nextTheme);
     return { theme: nextTheme };
   }),
 

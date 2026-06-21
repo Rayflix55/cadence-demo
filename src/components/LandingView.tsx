@@ -21,333 +21,482 @@ export default function LandingView() {
   const langKey = (language as Language) || "en";
   const t = TRANSLATIONS[langKey] || TRANSLATIONS.en;
 
+  const scrollToSection = (id: string) => {
+    const el = document.getElementById(id);
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   return (
-    <div className="space-y-20 pb-20 overflow-x-hidden relative bg-[#030712] transition-colors duration-300 text-white" id="landing-marketing-container">
+    <div className="min-h-screen pb-24 overflow-x-hidden relative bg-[#040201] text-slate-100 select-none font-sans" id="landing-marketing-container">
       
-      {/* 1. IMMERSIVE HERO SECTION (Revilo aesthetic shifted to blue brand tones) */}
-      <section className="relative pt-24 sm:pt-40 pb-20 px-4 sm:px-6 max-w-7xl mx-auto text-center space-y-12 overflow-hidden rounded-[40px] bg-gradient-to-b from-[#090d26]/85 to-[#030712] border border-white/5 shadow-2xl mt-4 sm:mt-8">
+      {/* GLOW BACKGROUND SYSTEM */}
+      <div className="absolute top-0 left-0 right-0 h-[800px] bg-gradient-to-b from-[#7F320D]/20 via-[#1A0A03]/5 to-transparent pointer-events-none select-none z-0" />
+      <div className="absolute top-[20%] left-[10%] w-[350px] h-[350px] bg-[#D45D00]/5 rounded-full blur-[120px] pointer-events-none select-none z-0" />
+      <div className="absolute top-[15%] right-[5%] w-[400px] h-[400px] bg-[#9D4EDD]/5 rounded-full blur-[130px] pointer-events-none select-none z-0" />
+
+      {/* ------------------ 1. PREMIUM REVILO HEADER NAV ------------------ */}
+      <header className="max-w-7xl mx-auto px-6 py-6 flex items-center justify-between relative z-50">
+        {/* Brand asterisk Logo */}
+        <div className="flex items-center space-x-2.5 cursor-pointer" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}>
+          <div className="relative flex items-center justify-center">
+            {/* Pulsing glow background of logo */}
+            <div className="absolute w-7 h-7 rounded-full bg-[#FF6B35]/35 blur-md" />
+            
+            {/* Brand Orange Asterisk Symbol */}
+            <svg viewBox="0 0 100 100" className="w-8 h-8 text-[#FF6B35]" fill="currentColor">
+              {/* Custom refined 8-point artistic asterisk */}
+              <path d="M50 15v70M15 50h70M25 25l50 50M25 75l50-50" stroke="currentColor" strokeWidth="15" strokeLinecap="round" />
+            </svg>
+          </div>
+          
+          <span className="font-sans font-extrabold text-lg tracking-tight text-white flex items-center">
+            Revilo<span className="text-[#FFB84D] text-xs font-mono ml-1 uppercase bg-[#FF6B35]/20 px-1.5 py-0.5 rounded-md scale-90">AI</span>
+          </span>
+        </div>
+
+        {/* Center menu Capsule Pill */}
+        <nav className="hidden md:flex items-center space-x-1 bg-white/5 border border-white/10 backdrop-blur-xl px-2 py-1.5 rounded-full shadow-inner shadow-black/40">
+          <button 
+            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+            className="px-5 py-2 bg-[#2D1B10]/90 border border-[#FF6B35]/25 text-white text-xs font-extrabold tracking-wide uppercase rounded-full shadow-sm cursor-pointer select-none"
+          >
+            Home
+          </button>
+          
+          <button 
+            onClick={() => scrollToSection("landing-comparison-section")}
+            className="px-5 py-2 text-slate-400 hover:text-white transition-colors text-xs font-bold uppercase tracking-wide cursor-pointer"
+          >
+            About
+          </button>
+          
+          <button 
+            onClick={() => scrollToSection("testimonials-section")}
+            className="px-5 py-2 text-slate-400 hover:text-white transition-colors text-xs font-bold uppercase tracking-wide cursor-pointer"
+          >
+            Testimonials
+          </button>
+          
+          <button 
+            onClick={() => scrollToSection("pricing-section-container")}
+            className="px-5 py-2 text-slate-400 hover:text-white transition-colors text-xs font-bold uppercase tracking-wide cursor-pointer"
+          >
+            Pricing
+          </button>
+          
+          <button 
+            onClick={() => scrollToSection("features-section")}
+            className="px-5 py-2 text-slate-400 hover:text-white transition-colors text-xs font-bold uppercase tracking-wide cursor-pointer"
+          >
+            Blog
+          </button>
+        </nav>
+
+        {/* Action button Deck */}
+        <div className="flex items-center space-x-4">
+          {isLoggedIn ? (
+            <button 
+              onClick={() => setView("dashboard")}
+              className="px-6 py-2.5 bg-white/5 hover:bg-white/10 border border-white/10 text-white rounded-full text-xs font-extrabold uppercase tracking-widest cursor-pointer active:scale-95 transition-all"
+            >
+              Console Workspace
+            </button>
+          ) : (
+            <>
+              <button 
+                onClick={() => setView("auth")}
+                className="hidden sm:inline-block text-slate-300 hover:text-white text-xs font-extrabold uppercase tracking-wide px-3 cursor-pointer select-none transition-colors"
+              >
+                Sign Up
+              </button>
+              
+              {/* Premium Highly-Glossy Orange Log in Button */}
+              <button 
+                onClick={() => setView("auth")}
+                className="relative overflow-hidden group px-6 py-2.5 bg-gradient-to-r from-[#FF5722] via-[#FF6B35] to-[#FF8C00] hover:brightness-110 active:scale-95 text-white font-extrabold text-xs uppercase tracking-widest rounded-xl transition-all duration-300 shadow-[0_0_30px_rgba(255,107,53,0.5)] border border-white/20 cursor-pointer min-h-[44px]"
+                id="landing-header-login-btn"
+              >
+                <span className="relative z-10">Log in</span>
+                {/* Secondary reflective overlay glaze */}
+                <div className="absolute inset-0 bg-gradient-to-t from-transparent via-white/15 to-transparent z-0 pointer-events-none transform -skew-y-12" />
+              </button>
+            </>
+          )}
+        </div>
+      </header>
+
+
+      {/* ------------------ 2. CINEMATIC HERO FIELD ------------------ */}
+      <section className="relative pt-24 sm:pt-40 pb-28 px-6 text-center overflow-hidden z-20">
         
-        {/* Glow backdrop streams */}
-        <div className="absolute top-0 left-1/4 right-1/4 h-80 bg-blue-600/10 rounded-full blur-[100px] pointer-events-none" />
-        <div className="absolute -bottom-20 left-1/3 right-1/3 h-96 bg-indigo-600/15 rounded-full blur-[120px] pointer-events-none" />
-
-        {/* BACKGROUND GLOWING COLUMNS (Revilo Soundwaves) */}
-        <div className="absolute inset-x-0 bottom-0 top-12 flex justify-between items-center px-6 sm:px-20 pointer-events-none select-none overflow-hidden opacity-30 sm:opacity-45 z-0">
-          {/* Left vertical waveguide grid */}
-          <div className="flex items-end space-x-1.5 sm:space-x-3 h-full pb-20">
-            {[24, 32, 56, 78, 92, 65, 42, 70, 88, 50, 34, 18, 10].map((h, i) => (
+        {/* BACKGROUND GLOWING PULSE WAVEGUIDES (Soundwaves) */}
+        <div className="absolute inset-x-0 bottom-4 top-16 flex justify-between items-center px-4 sm:px-16 pointer-events-none select-none overflow-hidden opacity-25 sm:opacity-40 z-0">
+          
+          {/* Left Wave Columns */}
+          <div className="flex items-end space-x-1.5 sm:space-x-3.5 h-full pb-8">
+            {[24, 38, 56, 78, 92, 80, 65, 48, 70, 88, 50, 34, 18, 10, 6].map((h, i) => (
               <div 
-                key={`wave-left-${i}`}
-                style={{ height: `${h * 0.7}%` }}
-                className="w-1 sm:w-1.5 rounded-full bg-gradient-to-t from-transparent via-blue-500/70 to-transparent shadow-[0_0_12px_rgba(59,130,246,0.45)] transition-all duration-1000 animate-pulse"
+                key={`vector-left-${i}`}
+                style={{ height: `${h * 0.8}%` }}
+                className="w-1 sm:w-1.5 rounded-full bg-gradient-to-t from-transparent via-[#FF6B35] to-transparent shadow-[0_0_15px_rgba(255,107,53,0.7)] animate-pulse"
               />
             ))}
           </div>
           
-          {/* Right vertical waveguide grid */}
-          <div className="flex items-end space-x-1.5 sm:space-x-3 h-full pb-20 transform rotate-180">
-            {[12, 18, 40, 64, 85, 74, 52, 38, 72, 89, 45, 26, 14].map((h, i) => (
+          {/* Right Wave Columns */}
+          <div className="flex items-end space-x-1.5 sm:space-x-3.5 h-full pb-8 transform rotate-180">
+            {[8, 14, 28, 42, 64, 85, 74, 58, 42, 72, 89, 45, 26, 14, 8].map((h, i) => (
               <div 
-                key={`wave-right-${i}`}
-                style={{ height: `${h * 0.7}%` }}
-                className="w-1 sm:w-1.5 rounded-full bg-gradient-to-t from-transparent via-cyan-400/70 to-transparent shadow-[0_0_12px_rgba(34,211,238,0.45)] transition-all duration-1000 animate-pulse"
+                key={`vector-right-${i}`}
+                style={{ height: `${h * 0.8}%` }}
+                className="w-1 sm:w-1.5 rounded-full bg-gradient-to-t from-transparent via-[#FFB84D] to-transparent shadow-[0_0_15px_rgba(255,184,77,0.7)] animate-pulse"
               />
             ))}
           </div>
         </div>
 
-        {/* FLOATING GLASS-METALLIC 3D LOOPS */}
-        {/* Top-Right Glass Ring */}
-        <div className="absolute top-8 -right-16 sm:right-12 w-48 h-48 sm:w-72 sm:h-72 opacity-50 sm:opacity-80 z-10 pointer-events-none">
-          <div className="w-full h-full border-[8px] border-t-cyan-400/40 border-r-indigo-500/20 border-b-blue-600/60 border-l-transparent rounded-full backdrop-blur-[5px] shadow-[inset_0_4px_30px_rgba(6,182,212,0.25),0_25px_60px_rgba(59,130,246,0.35)] transform rotate-45 animate-[spin_45s_linear_infinite]" />
+        {/* FLOATING specular gloss 3D loops mirroring the image style */}
+        {/* Torus - Top Right */}
+        <div className="absolute top-12 -right-16 md:right-10 w-64 h-64 sm:w-80 sm:h-80 pointer-events-none select-none z-10 opacity-80">
+          <svg viewBox="0 0 200 200" className="w-full h-full transform rotate-12 scale-110 drop-shadow-[0_20px_45px_rgba(255,107,53,0.25)] animate-[spin_60s_linear_infinite]">
+            <defs>
+              <linearGradient id="torus-3d-1" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stopColor="#FFA07A" stopOpacity="0.9" />
+                <stop offset="25%" stopColor="#FF6B35" stopOpacity="1" />
+                <stop offset="60%" stopColor="#5B1693" stopOpacity="0.95" />
+                <stop offset="100%" stopColor="#1E1B4B" stopOpacity="0.8" />
+              </linearGradient>
+            </defs>
+            {/* Ambient inner soft laser shadow glow backing */}
+            <circle cx="100" cy="100" r="72" fill="none" stroke="#FF6B35" strokeWidth="20" opacity="0.15" className="blur-xl" />
+            <ellipse cx="100" cy="100" rx="72" ry="46" fill="none" stroke="url(#torus-3d-1)" strokeWidth="18" strokeLinecap="round" transform="rotate(-30 100 100)" />
+            {/* Glaze highlights representing pure high-fi reflective chrome */}
+            <ellipse cx="100" cy="100" rx="72" ry="46" fill="none" stroke="#FFF" strokeWidth="2.5" strokeDasharray="30, 200" strokeLinecap="round" opacity="0.55" transform="rotate(-30 100 100)" />
+          </svg>
         </div>
 
-        {/* Bottom-Left Glass Ring */}
-        <div className="absolute bottom-6 -left-16 sm:left-12 w-44 h-44 sm:w-64 sm:h-64 opacity-40 sm:opacity-70 z-10 pointer-events-none">
-          <div className="w-full h-full border-[8px] border-b-cyan-400/40 border-l-blue-500/20 border-t-indigo-500/60 border-r-transparent rounded-full backdrop-blur-[5px] shadow-[inset_0_4px_30px_rgba(59,130,246,0.25),0_25px_60px_rgba(6,182,212,0.35)] transform -rotate-12 animate-[spin_55s_linear_infinite_reverse]" />
+        {/* Torus - Bottom Left */}
+        <div className="absolute bottom-6 -left-16 md:left-12 w-60 h-60 sm:w-72 sm:h-72 pointer-events-none select-none z-10 opacity-75">
+          <svg viewBox="0 0 200 200" className="w-full h-full transform -rotate-45 drop-shadow-[0_20px_40px_rgba(255,107,53,0.2)] animate-[spin_55s_linear_infinite_reverse]">
+            <defs>
+              <linearGradient id="torus-3d-2" x1="100%" y1="100%" x2="0%" y2="0%">
+                <stop offset="0%" stopColor="#FFAE5D" stopOpacity="0.9" />
+                <stop offset="30%" stopColor="#E03E00" stopOpacity="1" />
+                <stop offset="70%" stopColor="#6C1CA6" stopOpacity="0.9" />
+                <stop offset="100%" stopColor="#111" stopOpacity="0.8" />
+              </linearGradient>
+            </defs>
+            <circle cx="100" cy="100" r="68" fill="none" stroke="#E03E00" strokeWidth="18" opacity="0.1" className="blur-xl" />
+            <ellipse cx="100" cy="100" rx="68" ry="42" fill="none" stroke="url(#torus-3d-2)" strokeWidth="16" strokeLinecap="round" transform="rotate(45 100 100)" />
+            <ellipse cx="100" cy="100" rx="68" ry="42" fill="none" stroke="#FFF" strokeWidth="2" strokeDasharray="40, 160" strokeLinecap="round" opacity="0.5" transform="rotate(45 100 100)" />
+          </svg>
         </div>
 
-        {/* Centered Content Container */}
-        <div className="relative z-20 space-y-8 max-w-5xl mx-auto pt-6 sm:pt-12">
+
+        {/* Centered Content block */}
+        <div className="relative z-30 max-w-4xl mx-auto space-y-10">
           
-          {/* Avatar proof system inspired by Revilo mockup */}
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-3.5 select-none animate-fade-in">
+          {/* Avatar proof badges stack */}
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 select-none">
             <div className="flex -space-x-3">
               <img 
-                className="w-9 h-9 sm:w-11 sm:h-11 rounded-full border-2 border-[#090d26] object-cover ring-2 ring-blue-500/40"
+                className="w-10 h-10 rounded-full border-2 border-black object-cover ring-2 ring-[#FF6B35]/50 shadow-sm"
                 src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=100&auto=format&fit=crop"
-                alt="Representative 1"
+                alt="Stack Representative 1"
+                referrerPolicy="no-referrer"
               />
               <img 
-                className="w-9 h-9 sm:w-11 sm:h-11 rounded-full border-2 border-[#090d26] object-cover ring-2 ring-blue-500/40"
+                className="w-10 h-10 rounded-full border-2 border-black object-cover ring-2 ring-[#FF6B35]/50 shadow-sm"
                 src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=100&auto=format&fit=crop"
-                alt="Representative 2"
+                alt="Stack Representative 2"
+                referrerPolicy="no-referrer"
               />
               <img 
-                className="w-9 h-9 sm:w-11 sm:h-11 rounded-full border-2 border-[#090d26] object-cover ring-2 ring-blue-500/40"
+                className="w-10 h-10 rounded-full border-2 border-black object-cover ring-2 ring-[#FF6B35]/50 shadow-sm"
                 src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=100&auto=format&fit=crop"
-                alt="Representative 3"
+                alt="Stack Representative 3"
+                referrerPolicy="no-referrer"
               />
               <img 
-                className="w-9 h-9 sm:w-11 sm:h-11 rounded-full border-2 border-[#090d26] object-cover ring-2 ring-blue-500/40"
+                className="w-10 h-10 rounded-full border-2 border-black object-cover ring-2 ring-[#FF6B35]/50 shadow-sm"
                 src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=100&auto=format&fit=crop"
-                alt="Representative 4"
+                alt="Stack Representative 4"
+                referrerPolicy="no-referrer"
               />
             </div>
             
-            <div className="text-center sm:text-left bg-white/5 dark:bg-slate-900/30 px-4 py-1.5 rounded-full border border-white/10 backdrop-blur-md">
-              <span className="font-mono font-bold text-slate-300 tracking-widest text-[9px] sm:text-[10px]">
-                <strong className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-300 font-black">602+</strong> REVENUE WORKSPACES ACTIVE
-              </span>
+            <div className="text-left leading-tight">
+              <p className="text-white font-extrabold text-sm sm:text-base tracking-tight font-sans">602+</p>
+              <p className="text-slate-400 font-bold text-[10px] tracking-wide uppercase">Active Users</p>
             </div>
           </div>
 
-          {/* Bold, heavy, high-contrast headline */}
-          <h1 className="text-4xl sm:text-7xl font-display font-black tracking-tight text-white max-w-4xl mx-auto leading-none">
-            {t.heroTitle}
+          {/* Heavy visual typography pairing title */}
+          <h1 className="text-5xl sm:text-7xl font-sans font-extrabold text-white tracking-tight leading-[1.05] max-w-3xl mx-auto">
+            AI-Powered Sales with <br />
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#FFB84D] via-white to-white">Superior Precision</span>
           </h1>
 
-          <p className="text-sm sm:text-lg text-slate-400 max-w-2xl mx-auto leading-relaxed font-sans">
-            {t.heroSubtitle}
+          {/* Gold tint tan mid-contrast clean paragraph block */}
+          <p className="text-sm sm:text-base text-slate-450 text-slate-400 max-w-xl mx-auto leading-relaxed">
+            Predict, optimize, and close deals faster powered by cutting-edge
+            automation that feels as intuitive as your best sales rep.
           </p>
 
-          {/* Premium Blue Glowing CTA control button after mockup design */}
-          <div className="pt-6 flex flex-col sm:flex-row items-center justify-center gap-4 relative z-30">
-            {isLoggedIn ? (
-              <>
-                <button
-                  onClick={() => setView("dashboard")}
-                  className="relative group w-full sm:w-auto px-10 py-5 text-white font-extrabold text-xs uppercase tracking-widest rounded-full transition-all duration-300 overflow-hidden active:scale-95 shadow-[0_0_35px_rgba(37,99,235,0.45)] cursor-pointer"
-                  id="hero-launch-dashboard-btn"
-                >
-                  <div className="absolute inset-0 bg-gradient-to-r from-blue-600 via-indigo-600 to-cyan-500 group-hover:opacity-95 transition-opacity" />
-                  <div className="absolute inset-[1px] rounded-full bg-slate-950/20 group-hover:bg-transparent transition-colors z-0" />
-                  <span className="relative z-10 flex items-center justify-center space-x-2">
-                    <span>{t.predictiveStrategy}</span>
-                    <ArrowRight className="w-4 h-4 text-cyan-300 group-hover:translate-x-1.5 transition-transform" />
-                  </span>
-                </button>
-
-                <button
-                  onClick={() => setView("onboarding")}
-                  className="w-full sm:w-auto px-10 py-5 bg-white/5 hover:bg-white/10 text-slate-200 hover:text-white font-extrabold text-xs uppercase tracking-widest rounded-full border border-white/10 backdrop-blur-md transition-all duration-300 active:scale-95 cursor-pointer text-center"
-                  id="hero-view-onboarding-btn"
-                >
-                  <span>{t.creativeBuild}</span>
-                </button>
-              </>
-            ) : (
-              <>
-                <button
-                  onClick={() => setView("auth")}
-                  className="relative group w-full sm:w-auto px-10 py-5 text-white font-extrabold text-xs uppercase tracking-widest rounded-full transition-all duration-300 overflow-hidden active:scale-95 shadow-[0_0_35px_rgba(37,99,235,0.45)] cursor-pointer"
-                  id="hero-signup-cta-btn"
-                >
-                  <div className="absolute inset-0 bg-gradient-to-r from-blue-600 via-indigo-600 to-cyan-500 group-hover:opacity-95 transition-opacity" />
-                  <div className="absolute inset-[1px] rounded-full bg-slate-950/20 group-hover:bg-transparent transition-colors z-0" />
-                  <span className="relative z-10 flex items-center justify-center space-x-2">
-                    <span>Sign Up & Start</span>
-                    <ArrowRight className="w-4 h-4 text-cyan-300 group-hover:translate-x-1.5 transition-transform" />
-                  </span>
-                </button>
-
-                <button
-                  onClick={() => setView("auth")}
-                  className="w-full sm:w-auto px-10 py-5 bg-white/5 hover:bg-white/10 text-slate-300 hover:text-white font-extrabold text-xs uppercase tracking-widest rounded-full border border-white/10 backdrop-blur-md transition-all duration-300 active:scale-95 cursor-pointer text-center"
-                  id="hero-login-cta-btn"
-                >
-                  <span>Sign In / Log In</span>
-                </button>
-              </>
-            )}
+          {/* Epic CTA primary Action Button */}
+          <div className="pt-6 relative z-30">
+            <button
+              onClick={() => setView("auth")}
+              className="relative overflow-hidden group w-full sm:w-auto px-12 py-5 text-white font-black text-xs uppercase tracking-widest rounded-xl transition-all duration-300 shadow-[0_0_40px_rgba(255,107,53,0.65)] hover:shadow-[0_0_55px_rgba(255,107,53,0.85)] border border-white/20 active:scale-95 cursor-pointer min-h-[44px]"
+              id="landing-hero-demo-cta-btn"
+            >
+              {/* Hot Fire gradient background core overlay */}
+              <div className="absolute inset-0 bg-gradient-to-r from-[#E03E00] via-[#FF6B35] to-[#FFA07A] group-hover:opacity-95 transition-all" />
+              {/* SPECULAR glass glaze line across key */}
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent transform -skew-x-12 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-[1200ms] ease-out pointer-events-none" />
+              <span className="relative z-10 flex items-center justify-center space-x-2.5">
+                <span>Request A Demo</span>
+                <ArrowRight className="w-4 h-4 text-[#FFF] animate-pulse" />
+              </span>
+            </button>
           </div>
 
-          {/* High Gloss metrics grid wrapped into Hero backdrop to complete depth representation */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 max-w-5xl mx-auto pt-20 text-center text-xs">
-            <div className="bg-white/5 backdrop-blur-md p-6 rounded-3xl border border-white/10 shadow-lg space-y-1">
-              <strong className="text-3xl sm:text-4xl font-display font-black text-blue-400 block">3x</strong>
-              <span className="text-slate-400 uppercase tracking-widest text-[9px] font-bold block pt-1">Average Response Rate</span>
+          {/* Live stat points */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 px-2 sm:gap-6 max-w-4xl mx-auto pt-24 text-center">
+            <div className="bg-[#120B07]/60 border border-[#FF6B35]/15 backdrop-blur-md p-6 rounded-2xl relative group hover:border-[#FF6B35]/35 transition-colors">
+              <strong className="text-2xl sm:text-3xl font-display font-black text-[#FF6B35] block">3x</strong>
+              <span className="text-slate-400 uppercase tracking-widest text-[9px] font-bold block pt-1.5">Average Response Rate</span>
             </div>
             
-            <div className="bg-white/5 backdrop-blur-md p-6 rounded-3xl border border-white/10 shadow-lg space-y-1">
-              <strong className="text-3xl sm:text-4xl font-display font-black text-cyan-400 block">150 words</strong>
-              <span className="text-slate-400 uppercase tracking-widest text-[9px] font-bold block pt-1">Optimal Copy Constraint</span>
+            <div className="bg-[#120B07]/60 border border-[#FF6B35]/15 backdrop-blur-md p-6 rounded-2xl relative group hover:border-[#FF6B35]/35 transition-colors">
+              <strong className="text-2xl sm:text-3xl font-display font-black text-[#FFB84D] block">150 words</strong>
+              <span className="text-slate-400 uppercase tracking-widest text-[9px] font-bold block pt-1.5">Optimal Copy Constraint</span>
             </div>
             
-            <div className="bg-white/5 backdrop-blur-md p-6 rounded-3xl border border-white/10 shadow-lg space-y-1">
-              <strong className="text-3xl sm:text-4xl font-display font-black text-blue-400 block font-mono">10 hrs</strong>
-              <span className="text-slate-400 uppercase tracking-widest text-[9px] font-bold block pt-1">Time Saved / Rep Weekly</span>
+            <div className="bg-[#120B07]/60 border border-[#FF6B35]/15 backdrop-blur-md p-6 rounded-2xl relative group hover:border-[#FF6B35]/35 transition-colors">
+              <strong className="text-2xl sm:text-3xl font-display font-black text-[#FF6B35] block font-mono">10 hrs</strong>
+              <span className="text-slate-400 uppercase tracking-widest text-[9px] font-bold block pt-1.5">Weekly Saved Rep Time</span>
             </div>
             
-            <div className="bg-white/5 backdrop-blur-md p-6 rounded-3xl border border-white/10 shadow-lg space-y-1">
-              <strong className="text-3xl sm:text-4xl font-display font-black text-cyan-400 block">100%</strong>
-              <span className="text-slate-400 uppercase tracking-widest text-[9px] font-bold block pt-1">Safe Sandbox Isolation</span>
+            <div className="bg-[#120B07]/60 border border-[#FF6B35]/15 backdrop-blur-md p-6 rounded-2xl relative group hover:border-[#FF6B35]/35 transition-colors">
+              <strong className="text-2xl sm:text-3xl font-display font-black text-[#FFB84D] block">100%</strong>
+              <span className="text-slate-400 uppercase tracking-widest text-[9px] font-bold block pt-1.5">Predictive Isolation</span>
             </div>
           </div>
 
         </div>
       </section>
 
-      {/* 2. Problem/Solution Outbox Comparison */}
-      <section className="bg-slate-950 border-t border-b border-white/5 py-16 px-4">
-        <div className="max-w-7xl mx-auto space-y-12">
-          <div className="text-center space-y-2">
-            <h2 className="text-2xl sm:text-4xl font-display font-extrabold text-white">
+
+      {/* ------------------ 3. BRAND POSITION COMPARISON ------------------ */}
+      <section className="border-t border-[#FF6B35]/10 dark:border-white/5 py-24 px-6 relative z-15 bg-[#080504]" id="landing-comparison-section">
+        <div className="max-w-7xl mx-auto space-y-16">
+          <div className="text-center space-y-4">
+            <span className="text-[#FF6B35] font-mono text-xs font-black uppercase tracking-widest block">• THE CONTEXT ENGINE DIFFERENCE •</span>
+            <h2 className="text-3xl sm:text-5xl font-sans font-extrabold text-white tracking-tight">
               The Outbound Cold Outreach Gap
             </h2>
             <p className="text-sm text-slate-400 max-w-lg mx-auto">
-              How traditional outbound strategies crash compared to Cadence&apos;s intelligent personalizer engine.
+              How traditional bulk campaign lists fail compared side-by-side with Revilo&apos;s context orchestrations.
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {/* Bad Outbox */}
-            <div className="bg-white dark:bg-cadence-slate-900 p-8 rounded-2xl border border-red-200 dark:border-red-950/20 shadow-sm space-y-4">
-              <div className="flex items-center space-x-2 text-red-500 font-bold text-xs uppercase tracking-widest">
-                <TrendingDown className="w-4 h-4" />
-                <span>The Legacy Way: Dry Bulk Spreads</span>
+            
+            {/* Bad Outbox Panel */}
+            <div className="bg-[#0B0908] p-8 sm:p-10 rounded-3xl border border-red-500/10 shadow-lg space-y-6">
+              <div className="flex items-center space-x-2.5 text-red-500 font-extrabold text-xs uppercase tracking-widest font-mono">
+                <TrendingDown className="w-4 h-4 text-red-500 animate-pulse" />
+                <span>Legacy Spreads: Bulk Standard</span>
               </div>
-              <h4 className="text-lg font-bold text-cadence-slate-900 dark:text-white">Generic Mail Merging</h4>
-              <p className="text-xs text-cadence-slate-500 leading-relaxed">
-                Reps copy-paste standardized templates containing basic variables like <code className="bg-red-50 dark:bg-red-950/20 p-1 rounded">{"{{First Name}}"}</code>. Prospects easily spot the automation. Open rates sit under 15%, converting negligible pipelines.
+              
+              <h4 className="text-2xl font-bold text-white tracking-tight">Mechanical Mail Merges</h4>
+              
+              <p className="text-xs text-slate-400 leading-relaxed">
+                Sales pipelines copy-paste boilerplate sequences containing simplistic tokens like <code className="bg-red-950/30 px-1.5 py-0.5 rounded border border-red-900/20">{"{{First Name}}"}</code>. Recipients instantly flag this as a cold automated sequence. Outreach response logs collapse below 3% efficiency.
               </p>
-              <div className="border-t border-cadence-slate-100 dark:border-cadence-slate-800 pt-4 space-y-2 text-xs text-cadence-slate-600 dark:text-cadence-slate-400">
-                <p className="flex items-center space-x-2">
-                  <span className="text-red-500 font-extrabold">✕</span>
-                  <span>Unrelated generalized pitch templates</span>
+              
+              <div className="border-t border-white/5 pt-6 space-y-3 text-xs text-slate-400">
+                <p className="flex items-center space-x-3">
+                  <span className="text-red-500 text-base font-extrabold">✕</span>
+                  <span>Clunky bulk pitches without dynamic triggers</span>
                 </p>
-                <p className="flex items-center space-x-2">
-                  <span className="text-red-500 font-extrabold">✕</span>
-                  <span>Extremely generic non-curiosity subjects</span>
+                <p className="flex items-center space-x-3">
+                  <span className="text-red-500 text-base font-extrabold">✕</span>
+                  <span>Unrelated generalized pain-point assumption templates</span>
                 </p>
-                <p className="flex items-center space-x-2">
-                  <span className="text-red-500 font-extrabold">✕</span>
-                  <span>High spam scores and domain bans</span>
+                <p className="flex items-center space-x-3">
+                  <span className="text-red-500 text-base font-extrabold">✕</span>
+                  <span>Damages server deliverability ranking indexes</span>
                 </p>
               </div>
             </div>
 
-            {/* Smart Outbox */}
-            <div className="bg-white dark:bg-cadence-slate-900 p-8 rounded-2xl border border-blue-200 dark:border-blue-950/20 shadow-sm space-y-4">
-              <div className="flex items-center space-x-2 text-primary font-bold text-xs uppercase tracking-widest">
-                <TrendingUp className="w-4 h-4" />
-                <span>The Cadence Way: Context Tuning</span>
+            {/* Revilo Outbox Panel */}
+            <div className="bg-[#120B07] p-8 sm:p-10 rounded-3xl border border-[#FF6B35]/20 shadow-[0_0_35px_rgba(255,107,53,0.05)] space-y-6">
+              <div className="flex items-center space-x-2.5 text-[#FF6B35] font-extrabold text-xs uppercase tracking-widest font-mono">
+                <TrendingUp className="w-4 h-4 text-[#FFB84D] animate-bounce" />
+                <span>Revilo Choice: Precision Tuning</span>
               </div>
-              <h4 className="text-lg font-bold text-cadence-slate-900 dark:text-white">AI Contextual Copywriters</h4>
-              <p className="text-xs text-cadence-slate-500 leading-relaxed">
-                We synthesize prospects&apos; recent posts, corporate announcements, and job challenges alongside your core messaging anchors. The resulting email copies read like an individualized consultative message.
+              
+              <h4 className="text-2xl font-bold text-white tracking-tight">Adaptive Smart Copywriters</h4>
+              
+              <p className="text-xs text-slate-400 leading-relaxed">
+                Our intelligence compiles deep stakeholder insights, recent market events, and real challenges together. B2B copywriting tools adjust response rates and deliver highly consultative personalized loops natively inside your team sandbox.
               </p>
-              <div className="border-t border-cadence-slate-100 dark:border-cadence-slate-800 pt-4 space-y-2 text-xs text-cadence-slate-600 dark:text-cadence-slate-400">
-                <p className="flex items-center space-x-2">
-                  <span className="text-primary font-extrabold">✓</span>
-                  <span>Dynamic curiosity-sparking hooks</span>
+              
+              <div className="border-t border-white/5 pt-6 space-y-3 text-xs text-slate-350">
+                <p className="flex items-center space-x-3">
+                  <span className="text-emerald-400 text-base font-extrabold">✓</span>
+                  <span className="text-slate-300">Intelligent curiosity hooks designed individual per stakeholder</span>
                 </p>
-                <p className="flex items-center space-x-2">
-                  <span className="text-primary font-extrabold">✓</span>
-                  <span>Under 150 words optimized length constraints</span>
+                <p className="flex items-center space-x-3">
+                  <span className="text-emerald-400 text-base font-extrabold">✓</span>
+                  <span className="text-slate-300">Under 150 words compact length layout models</span>
                 </p>
-                <p className="flex items-center space-x-2">
-                  <span className="text-primary font-extrabold">✓</span>
-                  <span>Side-by-side diagnostic A/B rate optimizations</span>
+                <p className="flex items-center space-x-3">
+                  <span className="text-emerald-400 text-base font-extrabold">✓</span>
+                  <span className="text-slate-300">Guaranteed sandboxed diagnostic workspace before release</span>
                 </p>
               </div>
             </div>
+
           </div>
         </div>
       </section>
 
-      {/* 3. Core Feature Highlights */}
-      <section className="px-4 sm:px-6 max-w-7xl mx-auto space-y-12">
-        <div className="text-center space-y-2">
-          <span className="text-xs font-bold uppercase tracking-widest text-primary">{t.tagline}</span>
-          <h2 className="text-3xl font-display font-extrabold text-cadence-slate-900 dark:text-white">
-            {t.featuresTitle}
+
+      {/* ------------------ 4. FEATURES GRILL SECTION ------------------ */}
+      <section className="py-24 px-6 max-w-7xl mx-auto space-y-16" id="features-section">
+        <div className="text-center space-y-3 animate-fade-in">
+          <span className="text-xs font-mono font-black uppercase tracking-widest text-[#FF6B35]">★ PREDICTIVE OUTBOUND MODULES ★</span>
+          <h2 className="text-3xl sm:text-5xl font-sans font-extrabold text-white tracking-tight">
+            Comprehensive Outreach Superpowers
           </h2>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* Card 1 */}
-          <div className="bg-white dark:bg-cadence-slate-900 p-6 rounded-2xl border border-cadence-slate-200 dark:border-cadence-slate-800 shadow-sm space-y-3">
-            <div className="p-3 bg-primary-light text-primary rounded-xl w-fit">
-              <Mail className="w-5 h-5" />
+          <div className="bg-[#090706] p-8 rounded-3xl border border-white/5 hover:border-[#FF6B35]/25 transition-all duration-300 space-y-5">
+            <div className="p-3.5 bg-[#FF6B35]/10 text-[#FF6B35] rounded-xl w-fit">
+              <Mail className="w-6 h-6" />
             </div>
-            <h4 className="text-md font-bold text-cadence-slate-900 dark:text-white">{t.features.f3}</h4>
-            <p className="text-xs text-cadence-slate-500 dark:text-cadence-slate-400 leading-relaxed">
-              {t.features.f3Desc}
+            <h4 className="text-xl font-bold text-white">Dynamic Copywriter Synthesizer</h4>
+            <p className="text-xs text-slate-400 leading-relaxed">
+              Generate dozens of unique email variations tuned instantly for key enterprise buyer personas using advanced natural templates.
             </p>
           </div>
 
           {/* Card 2 */}
-          <div className="bg-white dark:bg-cadence-slate-900 p-6 rounded-2xl border border-cadence-slate-200 dark:border-cadence-slate-800 shadow-sm space-y-3">
-            <div className="p-3 bg-indigo-50 text-indigo-500 rounded-xl w-fit">
-              <Target className="w-5 h-5" />
+          <div className="bg-[#090706] p-8 rounded-3xl border border-white/5 hover:border-[#FF6B35]/25 transition-all duration-300 space-y-5">
+            <div className="p-3.5 bg-[#FFB84D]/10 text-[#FFB84D] rounded-xl w-fit">
+              <Target className="w-6 h-6" />
             </div>
-            <h4 className="text-md font-bold text-cadence-slate-900 dark:text-white">{t.features.f1}</h4>
-            <p className="text-xs text-cadence-slate-500 dark:text-cadence-slate-400 leading-relaxed">
-              {t.features.f1Desc}
+            <h4 className="text-xl font-bold text-white">Deliverability Analytics Radar</h4>
+            <p className="text-xs text-slate-400 leading-relaxed">
+              Simulate click-through calculations (CTR) and deliverability risks instantly before dispatching live campaigns.
             </p>
           </div>
 
           {/* Card 3 */}
-          <div className="bg-white dark:bg-cadence-slate-900 p-6 rounded-2xl border border-cadence-slate-200 dark:border-cadence-slate-800 shadow-sm space-y-3">
-            <div className="p-3 bg-blue-50 dark:bg-blue-950/20 text-primary rounded-xl w-fit">
-              <Sparkles className="w-5 h-5" />
+          <div className="bg-[#090706] p-8 rounded-3xl border border-white/5 hover:border-[#FF6B35]/25 transition-all duration-300 space-y-5">
+            <div className="p-3.5 bg-purple-500/10 text-[#9D4EDD] rounded-xl w-fit">
+              <Sparkles className="w-6 h-6" />
             </div>
-            <h4 className="text-md font-bold text-cadence-slate-900 dark:text-white">{t.features.f2}</h4>
-            <p className="text-xs text-cadence-slate-500 dark:text-cadence-slate-400 leading-relaxed">
-              {t.features.f2Desc}
+            <h4 className="text-xl font-bold text-white">Campaign Simulation Sandbox</h4>
+            <p className="text-xs text-slate-400 leading-relaxed">
+              Verify workflow behavior and message triggers inside a safe, client-side sandbox playground with zero deliverability cost.
             </p>
           </div>
         </div>
       </section>
 
-      {/* 4. Embedded Pricing Configurator */}
-      <section className="bg-cadence-slate-55 dark:bg-cadence-slate-950 py-16 px-4">
-        <PricingCalculator />
+
+      {/* ------------------ 5. THE REVILO INTEGRATED PRICING ------------------ */}
+      <section className="py-24 px-6 border-t border-b border-white/5 bg-[#050302] relative" id="pricing-section-container">
+        <div className="absolute inset-0 bg-radial-at-c from-[#FF6B35]/5 via-transparent to-transparent pointer-events-none" />
+        <div className="max-w-7xl mx-auto">
+          <PricingCalculator />
+        </div>
       </section>
 
-      {/* 5. Customer Testimonials */}
-      <section className="px-4 sm:px-6 max-w-4xl mx-auto space-y-10 text-center">
-        <div className="space-y-2">
-          <h2 className="text-2xl sm:text-3xl font-display font-extrabold text-cadence-slate-900 dark:text-white">
+
+      {/* ------------------ 6. PREMIUM TRUST TESTIMONIALS ------------------ */}
+      <section className="py-24 px-6 max-w-4xl mx-auto space-y-12 text-center" id="testimonials-section">
+        <div className="space-y-4">
+          <span className="text-xs font-mono font-bold tracking-widest uppercase text-[#FF6B35] block">• AGENTS APPROVED •</span>
+          <h2 className="text-3xl sm:text-4xl font-sans font-extrabold text-white tracking-tight">
             Endorsed by Revenue Operatives
           </h2>
-          <p className="text-xs text-cadence-slate-400 uppercase tracking-widest">REAL SUCCESS ACROSS B2B SAAS pipelines</p>
+          <p className="text-xs text-slate-500 uppercase tracking-widest font-mono">Real pipeline success across high-growth B2B enterprise SaaS</p>
         </div>
 
-        <div className="bg-white dark:bg-cadence-slate-900 rounded-2xl p-8 border border-cadence-slate-200 dark:border-cadence-slate-800 shadow-sm text-left relative">
-          <p className="text-sm sm:text-md text-cadence-slate-700 dark:text-cadence-slate-300 italic leading-relaxed">
-            &ldquo;Using Cadence&apos;s consultative tone copy settings, outbound open rates in our enterprise pipeline jumped from 14% to 54.2% within two weeks. We saved countless rep hours and secured double the actual discovery sessions.&rdquo;
+        <div className="bg-[#0C0806] rounded-3xl p-10 border border-[#FF6B35]/20 shadow-[0_0_55px_rgba(255,107,53,0.03)] text-left relative overflow-hidden group">
+          <div className="absolute top-0 right-0 w-32 h-32 bg-[#FF6B35]/5 rounded-full blur-2xl pointer-events-none" />
+          
+          <p className="text-base sm:text-lg text-slate-300 italic leading-relaxed">
+            &ldquo;Using Revilo&apos;s predictive precision tone algorithms, outbound open rates in our enterprise pipeline jumped from 14% to 54.2% within two weeks. We saved countless representative hours and secured double the actual meetings.&rdquo;
           </p>
-          <div className="flex items-center space-x-3 mt-6 pt-6 border-t border-cadence-slate-100 dark:border-cadence-slate-850">
-            <div className="w-10 h-10 rounded-full bg-indigo-500 text-white flex items-center justify-center font-bold">
+          
+          <div className="flex items-center space-x-3 mt-8 pt-8 border-t border-white/5">
+            <div className="w-12 h-12 rounded-full bg-gradient-to-tr from-[#FF6B35] to-[#FF4500] text-white flex items-center justify-center font-black text-xs uppercase shadow-md shadow-[#FF6B35]/25">
               AM
             </div>
             <div>
-              <h5 className="text-xs font-bold text-cadence-slate-900 dark:text-white">Andrew McArthur</h5>
-              <p className="text-[10px] text-cadence-slate-400">Head of Outbound Sales, CloudStorage Ltd</p>
+              <h5 className="text-sm font-bold text-white">Andrew McArthur</h5>
+              <p className="text-xs text-slate-500">Head of Outbound Operations, CloudStorage Ltd</p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* 6. Ultimate CTA */}
-      <section className="px-4 text-center max-w-3xl mx-auto space-y-6">
-        <h2 className="text-3xl sm:text-4xl font-display font-extrabold text-cadence-slate-900 dark:text-white tracking-tight">
+
+      {/* ------------------ 7. THE FINAL CALL-TO-ACTION ------------------ */}
+      <section className="py-24 px-6 text-center max-w-3xl mx-auto space-y-8 relative z-20">
+        <div className="absolute -top-12 left-1/2 -translate-x-1/2 w-72 h-72 bg-[#FF6B35]/10 rounded-full blur-[100px] pointer-events-none select-none" />
+        
+        <h2 className="text-4xl sm:text-5xl font-sans font-extrabold text-white tracking-tight">
           Ready to scale your outreach relevance?
         </h2>
-        <p className="text-sm text-cadence-slate-500">
-          Create. Author. Optimize. Connect our B2B Copywriter with your branding configurations now.
+        
+        <p className="text-sm text-slate-400 leading-relaxed max-w-lg mx-auto">
+          Create. Author. Optimize. Connect our B2B copywriters with your unique brand layouts inside our sandbox console.
         </p>
+        
         <button
-          onClick={() => setView("onboarding")}
-          className="px-8 py-3 bg-primary hover:bg-primary-hover text-white text-xs font-bold uppercase tracking-wider rounded-xl shadow-lg shadow-primary/20 transition-all cursor-pointer inline-flex items-center space-x-2"
+          onClick={() => setView("auth")}
+          className="relative overflow-hidden group px-10 py-4.5 bg-gradient-to-r from-[#FF5722] to-[#FF8C00] text-white text-xs font-black uppercase tracking-widest rounded-xl shadow-[0_0_35px_rgba(255,107,53,0.4)] hover:shadow-[0_0_50px_rgba(255,107,53,0.65)] hover:brightness-110 transition-all cursor-pointer inline-flex items-center space-x-2.5 active:scale-95"
           id="last-cta-btn"
         >
           <span>Get Started Free</span>
           <ArrowRight className="w-4 h-4" />
         </button>
       </section>
+
+
+      {/* ------------------ 8. PREMIUM METALLIC footer nav ------------------ */}
+      <footer className="border-t border-white/5 bg-[#030100] py-16 px-6 text-center text-xs text-slate-500 relative z-25">
+        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-8">
+          <div className="flex items-center space-x-2">
+            <div className="w-7 h-7 rounded-lg bg-[#FF6B35]/25 border border-[#FF6B35]/40 flex items-center justify-center font-black text-xs text-white">
+              R
+            </div>
+            <span className="font-sans font-extrabold text-sm tracking-tight text-white">Revilo Sales AI</span>
+          </div>
+          
+          <p className="font-mono text-[10px] uppercase tracking-wider text-slate-600">
+            © 2026 Revilo Sales Inc. Powered by predictive personalizations.
+          </p>
+          
+          <div className="flex space-x-6 text-[10px] font-black uppercase tracking-wider">
+            <button onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} className="hover:text-slate-300 cursor-pointer transition-colors">Home</button>
+            <button onClick={() => setView("auth")} className="hover:text-slate-300 cursor-pointer transition-colors">Sign In</button>
+            <button onClick={() => scrollToSection("pricing-section-container")} className="hover:text-slate-300 cursor-pointer transition-colors">Pricing</button>
+          </div>
+        </div>
+      </footer>
 
     </div>
   );

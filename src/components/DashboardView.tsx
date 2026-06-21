@@ -137,7 +137,7 @@ export default function DashboardView() {
             <div className="absolute w-[240px] h-[240px] rounded-full border border-gray-150 dark:border-gray-850" />
             
             {/* Overlapping Mint/Green aesthetic circle - left accent */}
-            <div className="absolute w-[180px] h-[180px] rounded-full bg-blue-200/30 dark:bg-blue-950/20 mix-blend-multiply opacity-80 left-[15%] top-[12%]" />
+            <div className="absolute w-[180px] h-[180px] rounded-full bg-[#FF6B35]/15 dark:bg-[#FF6B35]/10 mix-blend-multiply opacity-80 left-[15%] top-[12%]" />
             
             {/* Overlapping Grey Striped Circle - Center background */}
             <div className="absolute w-[210px] h-[210px] rounded-full overflow-hidden border border-gray-200/50 dark:border-cadence-slate-750/35 right-[20%] top-[15%] opacity-60">
@@ -152,7 +152,7 @@ export default function DashboardView() {
             </div>
 
             {/* Overlapping Solid Mint Green Circle - Core center foreground */}
-            <div className="absolute w-[140px] h-[140px] rounded-full bg-gradient-to-tr from-blue-500 to-cyan-400 shadow-xl right-[22%] bottom-[12%] animate-pulse opacity-90 flex items-center justify-center">
+            <div className="absolute w-[140px] h-[140px] rounded-full bg-gradient-to-tr from-[#FF6B35] to-[#FFB84D] shadow-xl right-[22%] bottom-[12%] animate-pulse opacity-90 flex items-center justify-center">
               <div className="w-[110px] h-[110px] rounded-full border-2 border-white/40 flex items-center justify-center">
                 <Sparkles className="w-8 h-8 text-white filter drop-shadow-sm" />
               </div>
@@ -162,7 +162,7 @@ export default function DashboardView() {
             <div className="absolute top-4 right-10 w-48 bg-white dark:bg-[#1d1f2b] p-3.5 rounded-xl shadow-lg border border-[#e5e7eb] dark:border-cadence-slate-800 pointer-events-auto select-text animate-fade-in">
               <div className="flex items-center justify-between mb-2">
                 <span className="text-[10px] font-bold uppercase tracking-wider text-gray-400 dark:text-gray-500">Top Locations</span>
-                <span className="text-xs text-blue-500 font-bold">▲</span>
+                <span className="text-xs text-[#FF6B35] font-bold">▲</span>
               </div>
               <div className="space-y-1.5">
                 <div className="flex justify-between items-center text-[11px] font-semibold text-cadence-slate-800 dark:text-gray-200">
@@ -170,7 +170,7 @@ export default function DashboardView() {
                   <span className="font-bold text-black dark:text-white">47%</span>
                 </div>
                 <div className="w-full h-1 bg-gray-100 dark:bg-gray-800 rounded-full overflow-hidden">
-                  <div className="h-full bg-blue-600" style={{ width: "47%" }} />
+                  <div className="h-full bg-[#FF6B35]" style={{ width: "47%" }} />
                 </div>
                 
                 <div className="flex justify-between items-center text-[11px] font-semibold text-cadence-slate-800 dark:text-gray-200 pt-0.5">
@@ -178,7 +178,7 @@ export default function DashboardView() {
                   <span className="font-bold text-black dark:text-white">20%</span>
                 </div>
                 <div className="w-full h-1 bg-gray-100 dark:bg-gray-800 rounded-full overflow-hidden">
-                  <div className="h-full bg-blue-600" style={{ width: "20%" }} />
+                  <div className="h-full bg-[#FF6B35]" style={{ width: "20%" }} />
                 </div>
                 
                 <div className="flex justify-between items-center text-[11px] font-semibold text-cadence-slate-800 dark:text-gray-200 pt-0.5">
@@ -186,7 +186,7 @@ export default function DashboardView() {
                   <span className="font-bold text-black dark:text-white">7%</span>
                 </div>
                 <div className="w-full h-1 bg-gray-100 dark:bg-gray-800 rounded-full overflow-hidden">
-                  <div className="h-full bg-blue-600" style={{ width: "7%" }} />
+                  <div className="h-full bg-[#FF6B35]" style={{ width: "7%" }} />
                 </div>
               </div>
             </div>
@@ -197,7 +197,7 @@ export default function DashboardView() {
         {/* Content Side of top banner layout */}
         <div className="relative z-10 max-w-xl space-y-6">
           <div className="space-y-2">
-            <span className="text-[11px] font-extrabold uppercase tracking-widest text-primary bg-[#eff6ff] dark:bg-blue-950/40 px-3 py-1 rounded-full w-fit block font-mono">
+            <span className="text-[11px] font-extrabold uppercase tracking-widest text-primary bg-[#FFF2EB] dark:bg-[#FF6B35]/15 px-3 py-1 rounded-full w-fit block font-mono">
               ★ AI Predictive System Active
             </span>
             <h1 className="text-3xl sm:text-4xl font-display font-extrabold text-black dark:text-white leading-tight">
@@ -211,7 +211,7 @@ export default function DashboardView() {
           {/* Nike style brand tag selector block from mockup template */}
           <div className="flex items-center space-x-2 bg-white dark:bg-[#1d1f2b] border border-[#e5e7eb] dark:border-cadence-slate-800 px-4 py-2 rounded-full w-fit shadow-xs">
             {/* Nike check symbol or branding circle */}
-            <div className="w-5 h-5 rounded-full bg-black dark:bg-[#2563eb] flex items-center justify-center font-bold text-white text-[10px] select-none">
+            <div className="w-5 h-5 rounded-full bg-black dark:bg-[#FF6B35] flex items-center justify-center font-bold text-white text-[10px] select-none">
               ✓
             </div>
             <span className="text-xs font-extrabold text-black dark:text-white">
@@ -320,7 +320,7 @@ export default function DashboardView() {
                 <strong className="text-2xl font-display font-extrabold text-black dark:text-white block leading-5">
                   17,786
                 </strong>
-                <span className="text-[9px] font-mono font-bold text-primary bg-[#eff6ff] dark:bg-blue-950/40 px-1 py-0.5 rounded uppercase">320x250 Dimension</span>
+                <span className="text-[9px] font-mono font-bold text-primary bg-[#FFF2EB] dark:bg-[#FF6B35]/15 px-1 py-0.5 rounded uppercase">320x250 Dimension</span>
               </div>
               <div>
                 <strong className="text-2xl font-display font-bold text-black dark:text-white block leading-5">
@@ -463,7 +463,7 @@ export default function DashboardView() {
 
           <p className="text-[9px] font-semibold text-gray-400 flex items-center space-x-1 justify-between border-t border-gray-100 dark:border-cadence-slate-800 pt-2">
             <span>Primary Focus: 25-44 Age Range</span>
-            <span className="text-blue-500 font-bold">▲ Hot Sector</span>
+            <span className="text-[#FF6B35] font-bold">▲ Hot Sector</span>
           </p>
         </div>
 
@@ -478,7 +478,7 @@ export default function DashboardView() {
             </h3>
             <p className="text-xs text-gray-400">Historical performance metrics across primary tone variants.</p>
           </div>
-          <span className="px-3 py-1 bg-gradient-to-tr from-[#eff6ff] to-blue-50/50 dark:from-blue-900/20 dark:to-blue-950/20 border border-blue-300 rounded-full text-xs font-bold text-blue-600 flex items-center space-x-1">
+          <span className="px-3 py-1 bg-gradient-to-tr from-[#FFF2EB] to-[#FFF2EB]/40 dark:from-[#FF6B35]/15 dark:to-[#FF6B35]/5 border border-[#FF6B35]/30 rounded-full text-xs font-bold text-[#FF6B35] flex items-center space-x-1">
             <Sparkles className="w-3 h-3 animate-pulse" />
             <span>AI Optimizer Engine Active</span>
           </span>
@@ -513,7 +513,7 @@ export default function DashboardView() {
                   <td className="py-4 text-center font-bold text-[#111] dark:text-white">
                     {v.openRate}%
                   </td>
-                  <td className="py-4 text-center font-bold text-blue-600">
+                  <td className="py-4 text-center font-bold text-[#FF6B35]">
                     {v.clickRate}%
                   </td>
                   <td className="py-4 text-center text-[#555] dark:text-white font-bold">
@@ -521,7 +521,7 @@ export default function DashboardView() {
                   </td>
                   <td className="py-4 text-right">
                     {v.winner ? (
-                      <span className="inline-flex items-center px-2 py-1 rounded-md text-[10px] font-bold uppercase tracking-widest bg-blue-50 dark:bg-blue-950/30 text-primary border border-blue-200">
+                      <span className="inline-flex items-center px-2 py-1 rounded-md text-[10px] font-bold uppercase tracking-widest bg-[#FFF2EB] dark:bg-[#FF6B35]/20 text-[#FF6B35] border border-[#FF6B35]/30">
                         WINNING (A)
                       </span>
                     ) : (
@@ -577,7 +577,7 @@ export default function DashboardView() {
                   <td className="py-4">
                     <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-[9px] font-extrabold uppercase tracking-widest ${
                       camp.status === "Active"
-                        ? "bg-blue-50 dark:bg-blue-950/30 text-blue-600 border border-blue-200"
+                        ? "bg-[#FFF2EB] dark:bg-[#FF6B35]/20 text-[#FF6B35] border border-[#FF6B35]/30"
                         : "bg-gray-100 dark:bg-gray-800 text-gray-500"
                     }`}>
                       {camp.status}
@@ -589,7 +589,7 @@ export default function DashboardView() {
                   <td className="py-4 text-center font-bold text-gray-900 dark:text-white">
                     {camp.openRate}%
                   </td>
-                  <td className="py-4 text-center font-bold text-blue-500">
+                  <td className="py-4 text-center font-bold text-[#FF6B35]">
                     {camp.clickRate}%
                   </td>
                   <td className="py-4 text-right font-bold text-[#6366f1]">

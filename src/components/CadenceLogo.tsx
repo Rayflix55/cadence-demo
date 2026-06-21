@@ -13,14 +13,14 @@ export default function CadenceLogo({ className = "h-8", iconOnly = false }: Cad
         viewBox="0 0 100 100"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
-        className="w-8 h-8 text-indigo-600 dark:text-blue-500 hover:scale-105 transition-transform"
+        className="w-8 h-8 text-[#FF6B35] dark:text-[#FFB84D] hover:scale-105 transition-transform"
       >
         {/* Glow Filter */}
         <defs>
           <linearGradient id="logo-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#4f46e5" />
-            <stop offset="50%" stopColor="#2563eb" />
-            <stop offset="100%" stopColor="#3b82f6" />
+            <stop offset="0%" stopColor="#FF6B35" />
+            <stop offset="50%" stopColor="#FFB84D" />
+            <stop offset="100%" stopColor="#FF4500" />
           </linearGradient>
           <filter id="beauty-glow" x="-20%" y="-20%" width="140%" height="140%">
             <feGaussianBlur stdDeviation="3" result="blur" />
@@ -40,13 +40,13 @@ export default function CadenceLogo({ className = "h-8", iconOnly = false }: Cad
 
         {/* Interactive signal particles */}
         <circle cx="30" cy="65" r="4" fill="white" className="animate-ping" />
-        <circle cx="54" cy="50" r="4.5" fill="#38bdf8" />
-        <circle cx="78" cy="40" r="4" fill="#a5b4fc" />
+        <circle cx="54" cy="50" r="4.5" fill="#FFB84D" />
+        <circle cx="78" cy="40" r="4" fill="#FF6B35" />
       </svg>
 
       {!iconOnly && (
         <span className="font-display font-black text-xl tracking-tighter text-slate-900 dark:text-white flex items-center">
-          cadence<span className="text-indigo-650 dark:text-blue-400 font-normal">.ai</span>
+          cadence<span className="text-[#FF6B35] dark:text-[#FFB84D] font-normal">.ai</span>
         </span>
       )}
     </div>

@@ -8,25 +8,25 @@
   --font-display: "Space Grotesk", sans-serif;
   --font-mono: "JetBrains Mono", monospace;
 
-  --color-primary: #2563eb;
-  --color-primary-hover: #1d4ed8;
-  --color-primary-light: #eff6ff;
-  --color-primary-dark: #1e3a8a;
+  --color-primary: #FF6B35;
+  --color-primary-hover: #FF5722;
+  --color-primary-light: #FFF2EB;
+  --color-primary-dark: #FF4500;
   
-  --color-cadence-slate-50: #f8fafc;
-  --color-cadence-slate-100: #f1f5f9;
-  --color-cadence-slate-200: #e2e8f0;
-  --color-cadence-slate-300: #cbd5e1;
-  --color-cadence-slate-400: #94a3b8;
-  --color-cadence-slate-500: #64748b;
-  --color-cadence-slate-600: #475569;
-  --color-cadence-slate-700: #334155;
-  --color-cadence-slate-800: #1e293b;
-  --color-cadence-slate-900: #0f172a;
-  --color-cadence-slate-950: #090d16;
+  --color-cadence-slate-50: #FAF8F6;
+  --color-cadence-slate-100: #FAF8F6;
+  --color-cadence-slate-200: #F3ECE7;
+  --color-cadence-slate-300: #EADCD3;
+  --color-cadence-slate-400: #D4A574;
+  --color-cadence-slate-500: #A88665;
+  --color-cadence-slate-600: #8C6D4F;
+  --color-cadence-slate-700: #6B5344;
+  --color-cadence-slate-800: #3D2F26;
+  --color-cadence-slate-900: #1C1510;
+  --color-cadence-slate-950: #0A0A0A;
 
-  --color-b2b-bg-light: #f5f6f4;
-  --color-b2b-bg-dark: #0b0c10;
+  --color-b2b-bg-light: #FAF8F6;
+  --color-b2b-bg-dark: #0A0A0A;
 }
 
 @layer base {
@@ -46,10 +46,10 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(16, 185, 129, 0.2);
+  background: rgba(255, 107, 53, 0.2);
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(16, 185, 129, 0.4);
+  background: rgba(255, 107, 53, 0.4);
 }

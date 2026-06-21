@@ -33,7 +33,7 @@ export default function Header() {
       <div className="flex items-center space-x-3 cursor-pointer select-none" onClick={() => setView("landing")}>
         <div className="flex items-center space-x-2">
           <CadenceLogo />
-          <span className="px-2 py-0.5 text-[8px] font-mono tracking-widest text-[#2563eb] bg-blue-50 dark:text-blue-400 dark:bg-blue-950/40 rounded-full font-bold uppercase hidden sm:inline-block">
+          <span className="px-2 py-0.5 text-[8px] font-mono tracking-widest text-[#FF6B35] bg-[#FFF2EB] dark:text-[#FFB84D] dark:bg-[#FF6B35]/20 rounded-full font-bold uppercase hidden sm:inline-block">
             Pro
           </span>
         </div>
@@ -151,9 +151,9 @@ export default function Header() {
                       setLanguage(lang.code);
                       setIsLangOpen(false);
                     }}
-                    className={`w-full text-left px-3 py-2 hover:bg-blue-600/10 dark:hover:bg-blue-500/20 flex items-center justify-between transition-colors cursor-pointer ${
+                    className={`w-full text-left px-3 py-2 hover:bg-primary/10 dark:hover:bg-primary/20 flex items-center justify-between transition-colors cursor-pointer ${
                       language === lang.code 
-                        ? "text-blue-600 dark:text-blue-400 font-bold bg-blue-50/50 dark:bg-blue-500/10" 
+                        ? "text-[#FF6B35] dark:text-[#FFB84D] font-bold bg-[#FFF2EB]/50 dark:bg-primary/15" 
                         : "text-slate-700 dark:text-slate-300 relative"
                     }`}
                   >
@@ -162,7 +162,7 @@ export default function Header() {
                       <span>{lang.name}</span>
                     </span>
                     {language === lang.code && (
-                      <span className="w-1.5 h-1.5 rounded-full bg-blue-500" />
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#FF6B35]" />
                     )}
                   </button>
                 ))}
@@ -175,7 +175,7 @@ export default function Header() {
         {!isLoggedIn ? (
           <button
             onClick={() => setView("auth")}
-            className="px-4 py-1.5 sm:px-5 sm:py-2 bg-gradient-to-tr from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white text-xs font-bold uppercase tracking-wider rounded-lg transition-all shadow-md shadow-blue-500/10 cursor-pointer active:scale-95"
+            className="px-4 py-1.5 sm:px-5 sm:py-2 bg-gradient-to-tr from-primary to-[#FF4500] hover:from-primary-hover hover:to-[#FF4500]/90 text-white text-xs font-bold uppercase tracking-wider rounded-lg transition-all shadow-md shadow-primary/10 cursor-pointer active:scale-95"
             id="header-signin-btn"
           >
             Sign In
@@ -208,14 +208,14 @@ export default function Header() {
               </div>
 
               <div className="relative group">
-                <div className="relative w-9 h-9 rounded-full overflow-hidden border border-black/10 dark:border-white/10 shadow-sm cursor-pointer hover:ring-2 hover:ring-blue-500 transition-all">
+                <div className="relative w-9 h-9 rounded-full overflow-hidden border border-black/10 dark:border-white/10 shadow-sm cursor-pointer hover:ring-2 hover:ring-primary transition-all">
                   <img 
                     src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=150&auto=format&fit=crop" 
                     alt="Sarah Chen avatar" 
                     className="w-full h-full object-cover"
                     referrerPolicy="no-referrer"
                   />
-                  <div className="absolute inset-0 bg-blue-600/10 mix-blend-multiply" />
+                  <div className="absolute inset-0 bg-primary/10 mix-blend-multiply" />
                 </div>
 
                 {/* Quick dropdown simulation */}
@@ -230,7 +230,7 @@ export default function Header() {
                   </div>
                   <button
                     onClick={resetOnboarding}
-                    className="w-full text-left px-4 py-2 hover:bg-blue-50 dark:hover:bg-blue-950/20 text-blue-600 dark:text-blue-400 flex items-center space-x-2 font-medium cursor-pointer"
+                    className="w-full text-left px-4 py-2 hover:bg-primary/5 dark:hover:bg-primary/10 text-primary dark:text-[#FFB84D] flex items-center space-x-2 font-medium cursor-pointer"
                   >
                     <RefreshCw className="w-3.5 h-3.5" />
                     <span>Onboarding Wizard</span>
