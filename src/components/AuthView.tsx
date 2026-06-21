@@ -1,107 +1,207 @@
 import { useState, FormEvent } from "react";
 import { useStore } from "../store";
 import { motion } from "motion/react";
-import { Mail, Lock, ArrowRight, Sparkles, LogIn, UserPlus, ShieldCheck } from "lucide-react";
+import { Lock, User, Key, KeyRound, Sparkles, LogIn, UserPlus, ShieldCheck, AlertCircle } from "lucide-react";
 import CadenceLogo from "./CadenceLogo";
+import { hashPassword, verifyPassword } from "../utils/crypto";
+import { dbGetUser, dbAddUser } from "../utils/db";
 
 export default function AuthView() {
-  const { setLoggedIn, setOnboarded, setView, language } = useStore();
+  const { setUser, setOnboarded, setView, language } = useStore();
   const [isSignUp, setIsSignUp] = useState(false);
-  const [email, setEmail] = useState("");
+  
+  // Localized and standard state fields according to spec
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [fullName, setFullName] = useState("");
-  const [company, setCompany] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
+  const [successMsg, setSuccessMsg] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
-  // Simple localized helpers inside AuthView to match Indian Hindi and other selections
+  // Localized textual assets matching Indian Hindi and other selections
   const text = {
     en: {
       loginTitle: "Sign in to Strategy Desk",
       signupTitle: "Create your Cadence Account",
-      loginSubtitle: "Access your server-side predictive outbound dashboard",
-      signupSubtitle: "Start personalizing B2B sales outreach at unlimited scale",
-      emailLabel: "Work Email Address",
-      passwordLabel: "Secure Access Password",
-      nameLabel: "Your Full Name",
-      companyLabel: "Company / Brand Name",
-      loginBtn: "Access Workspace",
-      signupBtn: "Create & Begin Onboarding",
-      toggleToSignup: "New to Cadence? Create a B2B Account",
-      toggleToLogin: "Already have an account? Sign In",
-      trustText: "Enterprise Grade SSL Encryption Active",
-      requiredFields: "Please fill out all required fields",
-      mockSuccessLogin: "Logged in successfully! Redirecting...",
-      mockSuccessSignup: "Account created! Let's set up your outbound brand tone.",
+      loginSubtitle: "Access your local-first predictive outbound workspace",
+      signupSubtitle: "Start personalizing B2B sales outreach with high enterprise safety",
+      usernameLabel: "Choose a username",
+      usernameLoginLabel: "Your username",
+      passwordLabel: "Create a strong password",
+      passwordLoginLabel: "Your password",
+      confirmPasswordLabel: "Confirm password",
+      loginBtn: "Log In",
+      signupBtn: "Create Account",
+      toggleToSignup: "Don't have an account? Sign Up",
+      toggleToLogin: "Already have an account? Log In",
+      trustText: "Local-First IndexedDB SubtleCrypto Verification",
+      requiredFields: "Please fill out all fields correctly.",
+      invalidCreds: "Invalid username or password",
+      userExists: "Username already taken",
+      usernameValidationError: "Username must be 3-20 characters, alphanumeric only (no spaces)",
+      passwordValidationError: "Password must be 8+ chars with uppercase, number, and special character",
+      confirmPasswordValidationError: "Passwords do not match"
     },
     hi: {
       loginTitle: "रणनीति डेस्क में साइन इन करें",
       signupTitle: "अपना कैडेंस खाता बनाएं",
-      loginSubtitle: "अपने पूर्वानुमानित आउटबाउंड डैशबोर्ड तक पहुंचें",
-      signupSubtitle: "असीमित पैमाने पर बी2बी बिक्री आउटरीच को निजीकृत करना शुरू करें",
-      emailLabel: "काम का ईमेल पता",
-      passwordLabel: "सुरक्षित एक्सेस पासवर्ड",
-      nameLabel: "आपका पूरा नाम",
-      companyLabel: "कंपनी / ब्रांड का नाम",
-      loginBtn: "कार्यक्षेत्र में प्रवेश करें",
-      signupBtn: "खाता बनाएं और ऑनबोर्डिंग शुरू करें",
-      toggleToSignup: "कैडेंस पर नए हैं? एक बी2बी खाता बनाएं",
-      toggleToLogin: "पहले से ही एक खाता है? साइन इन करें",
-      trustText: "एंटरप्राइज ग्रेड एसएसएल एन्क्रिप्शन सक्रिय",
-      requiredFields: "कृपया सभी आवश्यक फ़ील्ड भरें",
-      mockSuccessLogin: "सफलतापूर्वक लॉगिन हो गया! रीडायरेक्ट किया जा रहा है...",
-      mockSuccessSignup: "खाता बन गया! चलिए आपकी ऑनबोर्डिंग ब्रांड शैली सेट करते हैं।",
+      loginSubtitle: "अपनी स्थानीय-प्रथम पूर्वानुमानित आउटबाउंड डैशबोर्ड तक पहुंचें",
+      signupSubtitle: "उच्च उद्यम सुरक्षा के साथ बी2बी बिक्री आउटरीच को निजीकृत करना शुरू करें",
+      usernameLabel: "एक उपयोगकर्ता नाम चुनें",
+      usernameLoginLabel: "आपका उपयोगकर्ता नाम",
+      passwordLabel: "एक मजबूत पासवर्ड बनाएं",
+      passwordLoginLabel: "आपका पासवर्ड",
+      confirmPasswordLabel: "पासवर्ड की पुष्टि करें",
+      loginBtn: "लॉग इन करें",
+      signupBtn: "खाता बनाएं",
+      toggleToSignup: "खाता नहीं है? साइन अप करें",
+      toggleToLogin: "पहले से ही एक खाता है? लॉग इन करें",
+      trustText: "स्थानीय-प्रथम इंडेक्स्डडीबी कस्टमाइज्ड सिफर सुरक्षा",
+      requiredFields: "कृपया सभी फ़ील्ड सही ढंग से भरें।",
+      invalidCreds: "अमान्य उपयोगकर्ता नाम या पासवर्ड",
+      userExists: "उपयोगकर्ता नाम पहले से ही लिया जा चुका है",
+      usernameValidationError: "उपयोगकर्ता नाम अक्षरांकीय, 3-20 वर्णों का और बिना रिक्त स्थान के होना चाहिए",
+      passwordValidationError: "पासवर्ड कम से कम 8 वर्ण लंबा होना चाहिए जिसमें एक अपरकेस, संख्या और विशेष वर्ण हो",
+      confirmPasswordValidationError: "पासवर्ड मेल नहीं खाते हैं"
     },
     es: {
       loginTitle: "Iniciar sesión en la consola",
       signupTitle: "Crear su cuenta de Cadence",
-      loginSubtitle: "Acceda a su panel predictivo de prospección",
-      signupSubtitle: "Comience a personalizar correos a escala ilimitada",
-      emailLabel: "Correo Electrónico de Trabajo",
-      passwordLabel: "Contraseña de Acceso Seguro",
-      nameLabel: "Nombre Completo",
-      companyLabel: "Nombre de la Empresa",
-      loginBtn: "Acceder al Panel",
-      signupBtn: "Crear Cuenta e Iniciar Configuración",
-      toggleToSignup: "¿Nuevo en Cadence? Registre su cuenta B2B",
-      toggleToLogin: "¿Ya tiene cuenta? Iniciar Sesión",
-      trustText: "Cifrado SSL de grado empresarial activo",
-      requiredFields: "Por favor complete todos los campos requeridos",
-      mockSuccessLogin: "¡Inicio de sesión exitoso! Redirigiendo...",
-      mockSuccessSignup: "¡Cuenta creada! Configuremos su tono de marca.",
+      loginSubtitle: "Acceso seguro local-first a su consola predictiva",
+      signupSubtitle: "Comience a personalizar prospección de ventas B2B con alta seguridad",
+      usernameLabel: "Elija un nombre de usuario",
+      usernameLoginLabel: "Su nombre de usuario",
+      passwordLabel: "Cree una contraseña segura",
+      passwordLoginLabel: "Su contraseña",
+      confirmPasswordLabel: "Confirmar contraseña",
+      loginBtn: "Iniciar Sesión",
+      signupBtn: "Crear Cuenta",
+      toggleToSignup: "¿No tiene una cuenta? Registrarse",
+      toggleToLogin: "¿Ya tiene una cuenta? Iniciar Sesión",
+      trustText: "Cifrado local con SubtleCrypto en IndexedDB",
+      requiredFields: "Por favor complete todos los campos requeridos.",
+      invalidCreds: "Usuario o contraseña inválidos",
+      userExists: "El nombre de usuario ya está tomado",
+      usernameValidationError: "El nombre de usuario debe tener 3-20 caracteres alfanuméricos",
+      passwordValidationError: "La contraseña debe tener más de 8 caracteres con mayúscula, número y símbolo",
+      confirmPasswordValidationError: "Las contraseñas no coinciden"
     }
   };
 
   const t = text[language as "en" | "hi" | "es"] || text.en;
 
-  const handleSubmit = (e: FormEvent) => {
+  // Validation rules
+  const validateUsername = (name: string): boolean => {
+    // Alphanumeric, 3-20 chars, no spaces
+    const regex = /^[a-zA-Z0-9]{3,20}$/;
+    return regex.test(name);
+  };
+
+  const validatePasswordStrength = (pass: string): boolean => {
+    // min 8 chars, at least 1 uppercase, 1 number, 1 special char
+    const regex = /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]).{8,}$/;
+    return regex.test(pass);
+  };
+
+  // Helper to generate a strong random session token string
+  const generateSessionToken = (): string => {
+    const array = new Uint8Array(16);
+    window.crypto.getRandomValues(array);
+    return Array.from(array).map(byte => byte.toString(16).padStart(2, "0")).join("");
+  };
+
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     setError("");
+    setSuccessMsg("");
 
-    if (!email || !password || (isSignUp && (!fullName || !company))) {
+    if (!username.trim() || !password) {
       setError(t.requiredFields);
       return;
     }
 
+    if (isSignUp) {
+      // 1. Username validation check
+      if (!validateUsername(username)) {
+        setError(t.usernameValidationError);
+        return;
+      }
+      // 2. Password strength validation
+      if (!validatePasswordStrength(password)) {
+        setError(t.passwordValidationError);
+        return;
+      }
+      // 3. Confirm password matches
+      if (password !== confirmPassword) {
+        setError(t.confirmPasswordValidationError);
+        return;
+      }
+    }
+
     setIsLoading(true);
 
-    // Simulate database authentication with delay
-    setTimeout(() => {
-      setIsLoading(false);
-      
+    try {
       if (isSignUp) {
-        // Sign up path: register and prompt onboarding
-        setLoggedIn(true, email);
-        setOnboarded(false); // Make sure they go to onboarding wizard
-        setView("onboarding");
+        // Query database to see if the user already exists locally
+        const existingUser = await dbGetUser(username.trim());
+        if (existingUser) {
+          setError(t.userExists);
+          setIsLoading(false);
+          return;
+        }
+
+        // Hash password with Argon2 with secure fallbacks
+        const passwordHash = await hashPassword(password, username.trim());
+        
+        // Save user inside IndexedDB
+        await dbAddUser({
+          username: username.trim(),
+          passwordHash: passwordHash,
+          createdAt: Date.now()
+        });
+
+        // Set login & generate safe session encryption key
+        const secureToken = generateSessionToken();
+        await setUser(username.trim(), secureToken);
+        
+        setSuccessMsg("Success! Directing to onboarding workspace...");
+        setOnboarded(false);
+        setTimeout(() => {
+          setView("onboarding");
+        }, 800);
+
       } else {
-        // Login path
-        setLoggedIn(true, email);
-        // If they had previously finished onboarding, take them directly to dashboard
+        // Log in path
+        const userRecord = await dbGetUser(username.trim());
+        if (!userRecord) {
+          setError(t.invalidCreds);
+          setIsLoading(false);
+          return;
+        }
+
+        // Verify hash using constant-time comparison inside verifyPassword
+        const isMatch = await verifyPassword(password, userRecord.passwordHash, username.trim());
+        if (!isMatch) {
+          setError(t.invalidCreds);
+          setIsLoading(false);
+          return;
+        }
+
+        const secureToken = generateSessionToken();
+        await setUser(username.trim(), secureToken);
+        
+        setSuccessMsg("Welcome back!");
         setOnboarded(true);
-        setView("dashboard");
+        setTimeout(() => {
+          setView("dashboard");
+        }, 800);
       }
-    }, 1100);
+    } catch (err: any) {
+      console.error("Local core auth pipeline exception:", err);
+      setError(err?.message || "An authentication pipeline error occurred.");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -111,7 +211,7 @@ export default function AuthView() {
           <CadenceLogo />
         </div>
         <span className="px-2.5 py-0.5 text-[9px] font-mono tracking-wider text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-950/40 rounded-full font-bold uppercase inline-block">
-          B2B Personalization Platform
+          Predictive Outbound Sandbox
         </span>
       </div>
 
@@ -134,99 +234,94 @@ export default function AuthView() {
         </div>
 
         {error && (
-          <div className="mb-4 p-3 bg-red-50 dark:bg-red-950/20 border border-red-200 dark:border-red-900/30 text-red-600 dark:text-red-400 text-xs rounded-xl font-semibold">
-            ✕ {error}
+          <div className="mb-4 p-3.5 bg-red-50 dark:bg-red-950/20 border border-red-200 dark:border-red-900/30 text-red-600 dark:text-red-400 text-xs rounded-xl flex items-start space-x-2.5 font-medium leading-relaxed">
+            <AlertCircle className="w-4 h-4 mt-0.5 flex-shrink-0" />
+            <span>{error}</span>
+          </div>
+        )}
+
+        {successMsg && (
+          <div className="mb-4 p-3 bg-emerald-50 dark:bg-emerald-950/20 border border-emerald-200 dark:border-emerald-900/30 text-emerald-600 dark:text-emerald-400 text-xs rounded-xl font-semibold">
+            ✓ {successMsg}
           </div>
         )}
 
         <form onSubmit={handleSubmit} className="space-y-4">
-          {isSignUp && (
-            <motion.div
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: "auto" }}
-              className="space-y-4"
-            >
-              <div>
-                <label className="block text-[10px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1.5">
-                  {t.nameLabel}
-                </label>
-                <div className="relative">
-                  <span className="absolute inset-y-0 left-0 pl-3 flex items-center text-slate-400">
-                    <UserPlus className="w-4 h-4" />
-                  </span>
-                  <input
-                    type="text"
-                    required
-                    value={fullName}
-                    onChange={(e) => setFullName(e.target.value)}
-                    className="w-full pl-9 pr-4 py-3 bg-slate-50 dark:bg-cadence-slate-850 border border-slate-200 dark:border-cadence-slate-750 rounded-xl text-xs focus:ring-2 focus:ring-primary focus:outline-none dark:text-white"
-                    placeholder="Sarah Chen"
-                    id="auth-register-name"
-                  />
-                </div>
-              </div>
-
-              <div>
-                <label className="block text-[10px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1.5">
-                  {t.companyLabel}
-                </label>
-                <div className="relative">
-                  <span className="absolute inset-y-0 left-0 pl-3 flex items-center text-slate-400">
-                    <Sparkles className="w-4 h-4" />
-                  </span>
-                  <input
-                    type="text"
-                    required
-                    value={company}
-                    onChange={(e) => setCompany(e.target.value)}
-                    className="w-full pl-9 pr-4 py-3 bg-slate-50 dark:bg-cadence-slate-850 border border-slate-200 dark:border-cadence-slate-750 rounded-xl text-xs focus:ring-2 focus:ring-primary focus:outline-none dark:text-white"
-                    placeholder="TechFlow Solutions"
-                    id="auth-register-company"
-                  />
-                </div>
-              </div>
-            </motion.div>
-          )}
-
           <div>
-            <label className="block text-[10px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1.5">
-              {t.emailLabel}
+            <label className="block text-[10px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1.5" htmlFor="auth-username-input">
+              {isSignUp ? t.usernameLabel : t.usernameLoginLabel}
             </label>
             <div className="relative">
-              <span className="absolute inset-y-0 left-0 pl-3 flex items-center text-slate-400">
-                <Mail className="w-4 h-4" />
+              <span className="absolute inset-y-0 left-0 pl-3 flex items-center text-slate-400 select-none">
+                <User className="w-4 h-4" />
               </span>
               <input
-                type="email"
+                type="text"
                 required
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="w-full pl-9 pr-4 py-3 bg-slate-50 dark:bg-cadence-slate-850 border border-slate-200 dark:border-cadence-slate-750 rounded-xl text-xs focus:ring-2 focus:ring-primary focus:outline-none dark:text-white"
-                placeholder="you@company.com"
-                id="auth-email-input"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                className="w-full pl-9 pr-4 py-3 bg-slate-50 dark:bg-cadence-slate-850 border border-slate-200 dark:border-cadence-slate-750 rounded-xl text-xs focus:ring-2 focus:ring-primary focus:outline-none dark:text-white placeholder-slate-400 font-medium"
+                placeholder={isSignUp ? "e.g. sarahChen85" : "Your username"}
+                id="auth-username-input"
               />
             </div>
+            {isSignUp && (
+              <span className="block text-[9px] text-slate-400 mt-1 dark:text-slate-500">
+                Alphanumeric characters only, no spaces.
+              </span>
+            )}
           </div>
 
           <div>
-            <label className="block text-[10px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1.5">
-              {t.passwordLabel}
+            <label className="block text-[10px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1.5" htmlFor="auth-password-input">
+              {isSignUp ? t.passwordLabel : t.passwordLoginLabel}
             </label>
             <div className="relative">
-              <span className="absolute inset-y-0 left-0 pl-3 flex items-center text-slate-400">
-                <Lock className="w-4 h-4" />
+              <span className="absolute inset-y-0 left-0 pl-3 flex items-center text-slate-400 select-none">
+                <Key className="w-4 h-4" />
               </span>
               <input
                 type="password"
                 required
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full pl-9 pr-4 py-3 bg-slate-50 dark:bg-cadence-slate-850 border border-slate-200 dark:border-cadence-slate-750 rounded-xl text-xs focus:ring-2 focus:ring-primary focus:outline-none dark:text-white"
+                className="w-full pl-9 pr-4 py-3 bg-slate-50 dark:bg-cadence-slate-850 border border-slate-200 dark:border-cadence-slate-750 rounded-xl text-xs focus:ring-2 focus:ring-primary focus:outline-none dark:text-white placeholder-slate-400 font-medium"
                 placeholder="••••••••"
                 id="auth-password-input"
               />
             </div>
+            {isSignUp && (
+              <span className="block text-[9px] text-slate-400 mt-1 dark:text-slate-500">
+                Requires 8+ chars: 1 uppercase, 1 number, 1 special character.
+              </span>
+            )}
           </div>
+
+          {isSignUp && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              className="space-y-1.5"
+            >
+              <label className="block text-[10px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1.5" htmlFor="auth-confirm-password-input">
+                {t.confirmPasswordLabel}
+              </label>
+              <div className="relative">
+                <span className="absolute inset-y-0 left-0 pl-3 flex items-center text-slate-400 select-none">
+                  <KeyRound className="w-4 h-4" />
+                </span>
+                <input
+                  type="password"
+                  required
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                  className="w-full pl-9 pr-4 py-3 bg-slate-50 dark:bg-cadence-slate-850 border border-slate-200 dark:border-cadence-slate-750 rounded-xl text-xs focus:ring-2 focus:ring-primary focus:outline-none dark:text-white placeholder-slate-400 font-medium"
+                  placeholder="••••••••"
+                  id="auth-confirm-password-input"
+                />
+              </div>
+            </motion.div>
+          )}
 
           <button
             type="submit"
@@ -251,8 +346,9 @@ export default function AuthView() {
             onClick={() => {
               setIsSignUp(!isSignUp);
               setError("");
+              setConfirmPassword("");
             }}
-            className="text-xs font-semibold text-blue-600 hover:text-blue-500 dark:text-blue-400 dark:hover:text-blue-300 transition-colors"
+            className="text-xs font-semibold text-blue-600 hover:text-blue-500 dark:text-blue-400 dark:hover:text-blue-300 transition-colors cursor-pointer"
             id="auth-toggle-btn"
           >
             {isSignUp ? t.toggleToLogin : t.toggleToSignup}
@@ -263,7 +359,9 @@ export default function AuthView() {
       {/* Trust guarantees badge footer */}
       <div className="flex items-center justify-center space-x-2 text-slate-400 dark:text-slate-500 text-[10px] mt-6 select-none leading-none">
         <ShieldCheck className="w-3.5 h-3.5 text-blue-500" />
-        <span className="uppercase tracking-widest font-mono font-bold">{t.trustText}</span>
+        <span className="uppercase tracking-widest font-mono font-bold text-center leading-relaxed">
+          {t.trustText}
+        </span>
       </div>
     </div>
   );

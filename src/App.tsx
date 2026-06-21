@@ -9,7 +9,12 @@ import AuthView from "./components/AuthView";
 import { ArrowRight, Settings } from "lucide-react";
 
 export default function App() {
-  const { currentView, theme, isOnboarded, isLoggedIn, setView } = useStore();
+  const { currentView, theme, isOnboarded, isLoggedIn, setView, restoreSession, sessionIsLoading } = useStore();
+
+  // Try to restore session on page reload/mount
+  useEffect(() => {
+    restoreSession().catch((e) => console.error("Session restoration crashed on boot", e));
+  }, [restoreSession]);
 
   // Handle theme transitions globally by targeting documentElement
   useEffect(() => {
@@ -45,6 +50,18 @@ export default function App() {
         return <LandingView />;
     }
   };
+
+  if (sessionIsLoading) {
+    return (
+      <div className="min-h-screen bg-[#030712] flex flex-col justify-center items-center text-white font-sans space-y-4" id="applet-bootloader-screen">
+        <div className="relative">
+          <div className="w-12 h-12 border-4 border-blue-500/20 border-t-blue-500 rounded-full animate-spin" />
+          <div className="absolute inset-0 flex items-center justify-center font-bold text-xs text-blue-400">C</div>
+        </div>
+        <p className="text-xs font-mono text-slate-400 animate-pulse tracking-widest uppercase">Verifying session...</p>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen flex flex-col bg-b2b-bg-light dark:bg-b2b-bg-dark text-cadence-slate-800 dark:text-cadence-slate-100 transition-colors duration-250 font-sans" id="applet-viewport-root">

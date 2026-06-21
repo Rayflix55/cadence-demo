@@ -17,7 +17,7 @@ import {
 } from "lucide-react";
 
 export default function LandingView() {
-  const { setView, language } = useStore();
+  const { setView, language, isLoggedIn } = useStore();
   const langKey = (language as Language) || "en";
   const t = TRANSLATIONS[langKey] || TRANSLATIONS.en;
 
@@ -113,29 +113,53 @@ export default function LandingView() {
 
           {/* Premium Blue Glowing CTA control button after mockup design */}
           <div className="pt-6 flex flex-col sm:flex-row items-center justify-center gap-4 relative z-30">
-            <button
-              onClick={() => setView("onboarding")}
-              className="relative group w-full sm:w-auto px-10 py-5 text-white font-extrabold text-xs uppercase tracking-widest rounded-full transition-all duration-300 overflow-hidden active:scale-95 shadow-[0_0_35px_rgba(37,99,235,0.45)] cursor-pointer"
-              id="hero-launch-onboarding-btn"
-            >
-              {/* Internal neon color shift gradient background */}
-              <div className="absolute inset-0 bg-gradient-to-r from-blue-600 via-indigo-600 to-cyan-500 group-hover:opacity-95 transition-opacity" />
-              {/* High precision inset outline halo ring */}
-              <div className="absolute inset-[1px] rounded-full bg-slate-950/20 group-hover:bg-transparent transition-colors z-0" />
-              
-              <span className="relative z-10 flex items-center justify-center space-x-2">
-                <span>{t.getStartedBtn}</span>
-                <ArrowRight className="w-4 h-4 text-cyan-300 group-hover:translate-x-1.5 transition-transform" />
-              </span>
-            </button>
+            {isLoggedIn ? (
+              <>
+                <button
+                  onClick={() => setView("dashboard")}
+                  className="relative group w-full sm:w-auto px-10 py-5 text-white font-extrabold text-xs uppercase tracking-widest rounded-full transition-all duration-300 overflow-hidden active:scale-95 shadow-[0_0_35px_rgba(37,99,235,0.45)] cursor-pointer"
+                  id="hero-launch-dashboard-btn"
+                >
+                  <div className="absolute inset-0 bg-gradient-to-r from-blue-600 via-indigo-600 to-cyan-500 group-hover:opacity-95 transition-opacity" />
+                  <div className="absolute inset-[1px] rounded-full bg-slate-950/20 group-hover:bg-transparent transition-colors z-0" />
+                  <span className="relative z-10 flex items-center justify-center space-x-2">
+                    <span>{t.predictiveStrategy}</span>
+                    <ArrowRight className="w-4 h-4 text-cyan-300 group-hover:translate-x-1.5 transition-transform" />
+                  </span>
+                </button>
 
-            <button
-              onClick={() => setView("dashboard")}
-              className="w-full sm:w-auto px-10 py-5 bg-white/5 hover:bg-white/10 text-slate-200 hover:text-white font-extrabold text-xs uppercase tracking-widest rounded-full border border-white/10 backdrop-blur-md transition-all duration-300 active:scale-95 cursor-pointer text-center"
-              id="hero-view-demo-btn"
-            >
-              <span>{t.viewDemo}</span>
-            </button>
+                <button
+                  onClick={() => setView("onboarding")}
+                  className="w-full sm:w-auto px-10 py-5 bg-white/5 hover:bg-white/10 text-slate-200 hover:text-white font-extrabold text-xs uppercase tracking-widest rounded-full border border-white/10 backdrop-blur-md transition-all duration-300 active:scale-95 cursor-pointer text-center"
+                  id="hero-view-onboarding-btn"
+                >
+                  <span>{t.creativeBuild}</span>
+                </button>
+              </>
+            ) : (
+              <>
+                <button
+                  onClick={() => setView("auth")}
+                  className="relative group w-full sm:w-auto px-10 py-5 text-white font-extrabold text-xs uppercase tracking-widest rounded-full transition-all duration-300 overflow-hidden active:scale-95 shadow-[0_0_35px_rgba(37,99,235,0.45)] cursor-pointer"
+                  id="hero-signup-cta-btn"
+                >
+                  <div className="absolute inset-0 bg-gradient-to-r from-blue-600 via-indigo-600 to-cyan-500 group-hover:opacity-95 transition-opacity" />
+                  <div className="absolute inset-[1px] rounded-full bg-slate-950/20 group-hover:bg-transparent transition-colors z-0" />
+                  <span className="relative z-10 flex items-center justify-center space-x-2">
+                    <span>Sign Up & Start</span>
+                    <ArrowRight className="w-4 h-4 text-cyan-300 group-hover:translate-x-1.5 transition-transform" />
+                  </span>
+                </button>
+
+                <button
+                  onClick={() => setView("auth")}
+                  className="w-full sm:w-auto px-10 py-5 bg-white/5 hover:bg-white/10 text-slate-300 hover:text-white font-extrabold text-xs uppercase tracking-widest rounded-full border border-white/10 backdrop-blur-md transition-all duration-300 active:scale-95 cursor-pointer text-center"
+                  id="hero-login-cta-btn"
+                >
+                  <span>Sign In / Log In</span>
+                </button>
+              </>
+            )}
           </div>
 
           {/* High Gloss metrics grid wrapped into Hero backdrop to complete depth representation */}
