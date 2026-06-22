@@ -65,7 +65,7 @@ Make sure Node.js (v18+) is installed on your local machine.
 ### 1. Environment Configuration
 Define your environment values by duplicating the standard example file:
 ```bash
-cp .env.example .env
+cp .env
 ```
 Add your private Gemini API token inside the configuration:
 ```env
