@@ -150,18 +150,18 @@ export default function LandingView() {
             </div>
             
             <div className="text-left leading-tight">
-              <p className="text-slate-900 dark:text-white font-extrabold text-sm sm:text-base tracking-tight font-sans">602+</p>
-              <p className="text-slate-500 dark:text-slate-400 font-bold text-[10px] tracking-wide uppercase">{t.activeUsers || "Active Users"}</p>
+              <p className="text-[#1A1410] dark:text-white font-extrabold text-sm sm:text-base tracking-tight font-sans">602+</p>
+              <p className="text-[#6B5344] dark:text-slate-400 font-bold text-[10px] tracking-wide uppercase">{t.activeUsers || "Active Users"}</p>
             </div>
           </div>
 
           {/* Heavy visual typography pairing title */}
-          <h1 className="text-4xl sm:text-7xl font-sans font-extrabold text-slate-900 dark:text-white tracking-tight leading-[1.05] max-w-3xl mx-auto">
+          <h1 className="text-4xl sm:text-7xl font-sans font-extrabold text-[#1A1410] dark:text-white tracking-tight leading-[1.05] max-w-3xl mx-auto">
             {t.heroTitle}
           </h1>
 
           {/* Gold tint tan mid-contrast clean paragraph block */}
-          <p className="text-sm sm:text-base text-slate-600 dark:text-slate-400 max-w-xl mx-auto leading-relaxed">
+          <p className="text-sm sm:text-base text-[#6B5344] dark:text-slate-400 max-w-xl mx-auto leading-relaxed">
             {t.heroSubtitle}
           </p>
 
@@ -169,11 +169,11 @@ export default function LandingView() {
           <div className="pt-6 relative z-30">
             <button
               onClick={() => setView("auth")}
-              className="relative overflow-hidden group w-full sm:w-auto px-12 py-5 text-white font-black text-xs uppercase tracking-widest rounded-xl transition-all duration-300 shadow-[0_0_40px_rgba(255,107,53,0.65)] hover:shadow-[0_0_55px_rgba(255,107,53,0.85)] border border-white/20 active:scale-95 cursor-pointer min-h-[44px]"
+              className="relative overflow-hidden group w-full sm:w-auto px-12 py-5 text-white font-black text-xs uppercase tracking-widest rounded-xl transition-all duration-300 shadow-[0_4px_12px_rgba(255,87,34,0.15)] dark:shadow-[0_0_40px_rgba(255,107,53,0.65)] hover:shadow-[0_4px_20px_rgba(255,87,34,0.3)] border border-white/20 active:scale-95 cursor-pointer min-h-[44px]"
               id="landing-hero-demo-cta-btn"
             >
-              {/* Hot Fire gradient background core overlay */}
-              <div className="absolute inset-0 bg-gradient-to-r from-[#E03E00] via-[#FF6B35] to-[#FFA07A] group-hover:brightness-110 transition-all" />
+              {/* Hot Fire background core overlay */}
+              <div className="absolute inset-0 bg-[#FF5722] hover:bg-[#E64A19] transition-all" />
               {/* SPECULAR glass glaze line across key */}
               <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent transform -skew-x-12 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-[1200ms] ease-out pointer-events-none" />
               <span className="relative z-10 flex items-center justify-center space-x-2.5">
@@ -183,26 +183,26 @@ export default function LandingView() {
             </button>
           </div>
 
-          {/* Live stat points */}
+          {/* Live stat points (Stats boxes repaired for light mode correctness) */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 px-2 sm:gap-6 max-w-4xl mx-auto pt-24 text-center">
-            <div className="bg-[#120B07]/60 border border-[#FF6B35]/15 backdrop-blur-md p-6 rounded-2xl relative group hover:border-[#FF6B35]/35 transition-colors">
-              <strong className="text-2xl sm:text-3xl font-display font-black text-[#FF6B35] block">3x</strong>
-              <span className="text-slate-400 uppercase tracking-widest text-[9px] font-bold block pt-1.5">Average Response Rate</span>
+            <div className="bg-[#F9F5F0] dark:bg-[#120B07]/60 border border-[#FFE5D0] dark:border-[#FF6B35]/15 backdrop-blur-md p-6 rounded-2xl relative group hover:border-[#FF5722]/35 transition-colors shadow-[0_4px_12px_rgba(255,87,34,0.08)]">
+              <strong className="text-2xl sm:text-3xl font-display font-black text-[#FF5722] dark:text-[#FF6B35] block">3x</strong>
+              <span className="text-[#6B5344] dark:text-slate-400 uppercase tracking-widest text-[9px] font-bold block pt-1.5">Average Response Rate</span>
             </div>
             
-            <div className="bg-[#120B07]/60 border border-[#FF6B35]/15 backdrop-blur-md p-6 rounded-2xl relative group hover:border-[#FF6B35]/35 transition-colors">
-              <strong className="text-2xl sm:text-3xl font-display font-black text-[#FFB84D] block">150 words</strong>
-              <span className="text-slate-400 uppercase tracking-widest text-[9px] font-bold block pt-1.5">Optimal Copy Constraint</span>
+            <div className="bg-[#F9F5F0] dark:bg-[#120B07]/60 border border-[#FFE5D0] dark:border-[#FF6B35]/15 backdrop-blur-md p-6 rounded-2xl relative group hover:border-[#FF5722]/35 transition-colors shadow-[0_4px_12px_rgba(255,87,34,0.08)]">
+              <strong className="text-2xl sm:text-3xl font-display font-black text-[#FF5722] dark:text-[#FFB84D] block">150 words</strong>
+              <span className="text-[#6B5344] dark:text-slate-400 uppercase tracking-widest text-[9px] font-bold block pt-1.5">Optimal Copy Constraint</span>
             </div>
             
-            <div className="bg-[#120B07]/60 border border-[#FF6B35]/15 backdrop-blur-md p-6 rounded-2xl relative group hover:border-[#FF6B35]/35 transition-colors">
-              <strong className="text-2xl sm:text-3xl font-display font-black text-[#FF6B35] block font-mono">10 hrs</strong>
-              <span className="text-slate-400 uppercase tracking-widest text-[9px] font-bold block pt-1.5">Weekly Saved Rep Time</span>
+            <div className="bg-[#F9F5F0] dark:bg-[#120B07]/60 border border-[#FFE5D0] dark:border-[#FF6B35]/15 backdrop-blur-md p-6 rounded-2xl relative group hover:border-[#FF5722]/35 transition-colors shadow-[0_4px_12px_rgba(255,87,34,0.08)]">
+              <strong className="text-2xl sm:text-3xl font-display font-black text-[#FF5722] dark:text-[#FF6B35] block font-mono">10 hrs</strong>
+              <span className="text-[#6B5344] dark:text-slate-400 uppercase tracking-widest text-[9px] font-bold block pt-1.5">Weekly Saved Rep Time</span>
             </div>
             
-            <div className="bg-[#120B07]/60 border border-[#FF6B35]/15 backdrop-blur-md p-6 rounded-2xl relative group hover:border-[#FF6B35]/35 transition-colors">
-              <strong className="text-2xl sm:text-3xl font-display font-black text-[#FFB84D] block">100%</strong>
-              <span className="text-slate-400 uppercase tracking-widest text-[9px] font-bold block pt-1.5">Predictive Isolation</span>
+            <div className="bg-[#F9F5F0] dark:bg-[#120B07]/60 border border-[#FFE5D0] dark:border-[#FF6B35]/15 backdrop-blur-md p-6 rounded-2xl relative group hover:border-[#FF5722]/35 transition-colors shadow-[0_4px_12px_rgba(255,87,34,0.08)]">
+              <strong className="text-2xl sm:text-3xl font-display font-black text-[#FF5722] dark:text-[#FFB84D] block">100%</strong>
+              <span className="text-[#6B5344] dark:text-slate-400 uppercase tracking-widest text-[9px] font-bold block pt-1.5">Predictive Isolation</span>
             </div>
           </div>
 
@@ -211,14 +211,14 @@ export default function LandingView() {
 
 
       {/* ------------------ 3. BRAND POSITION COMPARISON ------------------ */}
-      <section className="border-t border-[#FF6B35]/10 dark:border-white/5 py-24 px-6 relative z-15 bg-white/30 dark:bg-[#080504]/30 backdrop-blur-md transition-all duration-300" id="landing-comparison-section">
+      <section className="border-t border-[#FFE5D0] dark:border-white/5 py-24 px-6 relative z-15 bg-[#FFFFFF] dark:bg-[#080504]/30 backdrop-blur-md transition-all duration-300" id="landing-comparison-section">
         <div className="max-w-7xl mx-auto space-y-16">
           <div className="text-center space-y-4">
-            <span className="text-[#FF6B35] font-mono text-xs font-black uppercase tracking-widest block">• {t.tagline || "THE CONTEXT ENGINE DIFFERENCE"} •</span>
-            <h2 className="text-3xl sm:text-5xl font-sans font-extrabold text-slate-900 dark:text-white tracking-tight">
+            <span className="text-[#FF5722] dark:text-[#FF6B35] font-mono text-xs font-black uppercase tracking-widest block">• {t.tagline || "THE CONTEXT ENGINE DIFFERENCE"} •</span>
+            <h2 className="text-3xl sm:text-5xl font-sans font-extrabold text-[#1A1410] dark:text-white tracking-tight">
               {t.featuresTitle || "The Outbound Cold Outreach Gap"}
             </h2>
-            <p className="text-sm text-slate-500 dark:text-slate-400 max-w-lg mx-auto">
+            <p className="text-sm text-[#6B5344] dark:text-slate-400 max-w-lg mx-auto">
               {t.featuresSubtitle || "How traditional bulk campaign lists fail compared side-by-side with Cadence's context orchestrations."}
             </p>
           </div>
@@ -226,19 +226,19 @@ export default function LandingView() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             
             {/* Bad Outbox Panel */}
-            <div className="bg-slate-50/70 dark:bg-[#0B0908] p-8 sm:p-10 rounded-3xl border border-red-500/10 shadow-lg space-y-6 transition-all">
+            <div className="bg-[#F9F5F0] dark:bg-[#0B0908] p-8 sm:p-10 rounded-3xl border border-red-500/20 dark:border-red-500/10 shadow-[0_4px_12px_rgba(255,87,34,0.08)] space-y-6 transition-all">
               <div className="flex items-center space-x-2.5 text-red-500 font-extrabold text-xs uppercase tracking-widest font-mono">
                 <TrendingDown className="w-4 h-4 text-red-500 animate-pulse" />
                 <span>Legacy Spreads: Bulk Standard</span>
               </div>
               
-              <h4 className="text-2xl font-bold text-slate-900 dark:text-white tracking-tight">Mechanical Mail Merges</h4>
+              <h4 className="text-2xl font-bold text-[#1A1410] dark:text-white tracking-tight">Mechanical Mail Merges</h4>
               
-              <p className="text-xs text-slate-400 leading-relaxed">
-                Sales pipelines copy-paste boilerplate sequences containing simplistic tokens like <code className="bg-red-950/30 px-1.5 py-0.5 rounded border border-red-900/20">{"{{First Name}}"}</code>. Recipients instantly flag this as a cold automated sequence. Outreach response logs collapse below 3% efficiency.
+              <p className="text-xs text-[#6B5344] dark:text-slate-400 leading-relaxed">
+                Sales pipelines copy-paste boilerplate sequences containing simplistic tokens like <code className="bg-red-200/50 dark:bg-red-950/30 px-1.5 py-0.5 rounded border border-red-900/20 text-[#1A1410] dark:text-red-200">{"{{First Name}}"}</code>. Recipients instantly flag this as a cold automated sequence. Outreach response logs collapse below 3% efficiency.
               </p>
               
-              <div className="border-t border-white/5 pt-6 space-y-3 text-xs text-slate-400">
+              <div className="border-t border-[#FFE5D0] dark:border-white/5 pt-6 space-y-3 text-xs text-[#6B5344] dark:text-slate-400">
                 <p className="flex items-center space-x-3">
                   <span className="text-red-500 text-base font-extrabold">✕</span>
                   <span>Clunky bulk pitches without dynamic triggers</span>
@@ -255,30 +255,30 @@ export default function LandingView() {
             </div>
 
             {/* Cadence Outbox Panel */}
-            <div className="bg-[#FFFDFB] dark:bg-[#120B07] p-8 sm:p-10 rounded-3xl border border-[#FF6B35]/30 dark:border-[#FF6B35]/20 shadow-[0_0_35px_rgba(255,107,53,0.05)] space-y-6 transition-all">
-              <div className="flex items-center space-x-2.5 text-[#FF6B35] font-extrabold text-xs uppercase tracking-widest font-mono">
-                <TrendingUp className="w-4 h-4 text-[#FFB84D] animate-bounce" />
+            <div className="bg-[#F9F5F0] dark:bg-[#120B07] p-8 sm:p-10 rounded-3xl border border-[#FFE5D0] dark:border-[#FF6B35]/20 shadow-[0_4px_12px_rgba(255,87,34,0.08)] dark:shadow-[0_0_35px_rgba(255,107,53,0.05)] space-y-6 transition-all">
+              <div className="flex items-center space-x-2.5 text-[#FF5722] dark:text-[#FF6B35] font-extrabold text-xs uppercase tracking-widest font-mono">
+                <TrendingUp className="w-4 h-4 text-[#FF5722] dark:text-[#FFB84D] animate-bounce" />
                 <span>Cadence.ai: Precision Tuning</span>
               </div>
               
-              <h4 className="text-2xl font-bold text-slate-900 dark:text-white tracking-tight">Adaptive Smart Copywriters</h4>
+              <h4 className="text-2xl font-bold text-[#1A1410] dark:text-white tracking-tight">Adaptive Smart Copywriters</h4>
               
-              <p className="text-xs text-slate-400 leading-relaxed">
+              <p className="text-xs text-[#6B5344] dark:text-slate-400 leading-relaxed">
                 Our intelligence compiles deep stakeholder insights, recent market events, and real challenges together. B2B copywriting tools adjust response rates and deliver highly consultative personalized loops natively inside your team sandbox.
               </p>
               
-              <div className="border-t border-white/5 pt-6 space-y-3 text-xs text-slate-350">
+              <div className="border-t border-[#FFE5D0] dark:border-white/5 pt-6 space-y-3 text-xs text-[#6B5344] dark:text-slate-350">
                 <p className="flex items-center space-x-3">
-                  <span className="text-emerald-400 text-base font-extrabold">✓</span>
-                  <span className="text-slate-300">Intelligent curiosity hooks designed individual per stakeholder</span>
+                  <span className="text-emerald-600 dark:text-emerald-400 text-base font-extrabold">✓</span>
+                  <span className="text-[#1A1410] dark:text-slate-300 font-medium">Intelligent curiosity hooks designed individual per stakeholder</span>
                 </p>
                 <p className="flex items-center space-x-3">
-                  <span className="text-emerald-400 text-base font-extrabold">✓</span>
-                  <span className="text-slate-300">Under 150 words compact length layout models</span>
+                  <span className="text-emerald-600 dark:text-emerald-400 text-base font-extrabold">✓</span>
+                  <span className="text-[#1A1410] dark:text-slate-300">Under 150 words compact length layout models</span>
                 </p>
                 <p className="flex items-center space-x-3">
-                  <span className="text-emerald-400 text-base font-extrabold">✓</span>
-                  <span className="text-slate-300">Guaranteed sandboxed diagnostic workspace before release</span>
+                  <span className="text-emerald-600 dark:text-emerald-400 text-base font-extrabold">✓</span>
+                  <span className="text-[#1A1410] dark:text-slate-300">Guaranteed sandboxed diagnostic workspace before release</span>
                 </p>
               </div>
             </div>
@@ -287,46 +287,45 @@ export default function LandingView() {
         </div>
       </section>
 
-
       {/* ------------------ 4. FEATURES GRILL SECTION ------------------ */}
       <section className="py-24 px-6 max-w-7xl mx-auto space-y-16" id="features-section">
         <div className="text-center space-y-3 animate-fade-in">
-          <span className="text-xs font-mono font-black uppercase tracking-widest text-[#FF6B35]">★ PREDICTIVE OUTBOUND MODULES ★</span>
-          <h2 className="text-3xl sm:text-5xl font-sans font-extrabold text-white tracking-tight">
+          <span className="text-xs font-mono font-black uppercase tracking-widest text-[#FF5722] dark:text-[#FF6B35]">★ PREDICTIVE OUTBOUND MODULES ★</span>
+          <h2 className="text-3xl sm:text-5xl font-sans font-extrabold text-[#1A1410] dark:text-white tracking-tight">
             Comprehensive Outreach Superpowers
           </h2>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* Card 1 */}
-          <div className="bg-[#090706] p-8 rounded-3xl border border-white/5 hover:border-[#FF6B35]/25 transition-all duration-300 space-y-5">
-            <div className="p-3.5 bg-[#FF6B35]/10 text-[#FF6B35] rounded-xl w-fit">
+          <div className="bg-[#F9F5F0] dark:bg-[#090706] p-8 rounded-3xl border border-[#FFE5D0] dark:border-white/5 hover:border-brand-primary/25 shadow-[0_4px_12px_rgba(255,87,34,0.08)] transition-all duration-300 space-y-5">
+            <div className="p-3.5 bg-[#FFE5D0] dark:bg-[#FF6B35]/10 text-[#FF5722] dark:text-[#FF6B35] rounded-xl w-fit">
               <Mail className="w-6 h-6" />
             </div>
-            <h4 className="text-xl font-bold text-white">Dynamic Copywriter Synthesizer</h4>
-            <p className="text-xs text-slate-400 leading-relaxed">
+            <h4 className="text-xl font-bold text-[#1A1410] dark:text-white">Dynamic Copywriter Synthesizer</h4>
+            <p className="text-xs text-[#6B5344] dark:text-slate-400 leading-relaxed">
               Generate dozens of unique email variations tuned instantly for key enterprise buyer personas using advanced natural templates.
             </p>
           </div>
 
           {/* Card 2 */}
-          <div className="bg-[#090706] p-8 rounded-3xl border border-white/5 hover:border-[#FF6B35]/25 transition-all duration-300 space-y-5">
-            <div className="p-3.5 bg-[#FFB84D]/10 text-[#FFB84D] rounded-xl w-fit">
+          <div className="bg-[#F9F5F0] dark:bg-[#090706] p-8 rounded-3xl border border-[#FFE5D0] dark:border-white/5 hover:border-brand-primary/25 shadow-[0_4px_12px_rgba(255,87,34,0.08)] transition-all duration-300 space-y-5">
+            <div className="p-3.5 bg-[#FFE5D0] dark:bg-[#FFB84D]/10 text-[#FF5722] dark:text-[#FFB84D] rounded-xl w-fit">
               <Target className="w-6 h-6" />
             </div>
-            <h4 className="text-xl font-bold text-white">Deliverability Analytics Radar</h4>
-            <p className="text-xs text-slate-400 leading-relaxed">
+            <h4 className="text-xl font-bold text-[#1A1410] dark:text-white">Deliverability Analytics Radar</h4>
+            <p className="text-xs text-[#6B5344] dark:text-slate-400 leading-relaxed">
               Simulate click-through calculations (CTR) and deliverability risks instantly before dispatching live campaigns.
             </p>
           </div>
 
           {/* Card 3 */}
-          <div className="bg-[#090706] p-8 rounded-3xl border border-white/5 hover:border-[#FF6B35]/25 transition-all duration-300 space-y-5">
-            <div className="p-3.5 bg-purple-500/10 text-[#9D4EDD] rounded-xl w-fit">
+          <div className="bg-[#F9F5F0] dark:bg-[#090706] p-8 rounded-3xl border border-[#FFE5D0] dark:border-white/5 hover:border-brand-primary/25 shadow-[0_4px_12px_rgba(255,87,34,0.08)] transition-all duration-300 space-y-5">
+            <div className="p-3.5 bg-[#FFE5D0] dark:bg-[#9D4EDD]/10 text-[#FF5722] dark:text-[#9D4EDD] rounded-xl w-fit">
               <Sparkles className="w-6 h-6" />
             </div>
-            <h4 className="text-xl font-bold text-white">Campaign Simulation Sandbox</h4>
-            <p className="text-xs text-slate-400 leading-relaxed">
+            <h4 className="text-xl font-bold text-[#1A1410] dark:text-white">Campaign Simulation Sandbox</h4>
+            <p className="text-xs text-[#6B5344] dark:text-slate-400 leading-relaxed">
               Verify workflow behavior and message triggers inside a safe, client-side sandbox playground with zero deliverability cost.
             </p>
           </div>
@@ -335,8 +334,8 @@ export default function LandingView() {
 
 
       {/* ------------------ 5. THE REVILO INTEGRATED PRICING ------------------ */}
-      <section className="py-24 px-6 border-t border-b border-white/5 bg-[#050302] relative" id="pricing-section-container">
-        <div className="absolute inset-0 bg-radial-at-c from-[#FF6B35]/5 via-transparent to-transparent pointer-events-none" />
+      <section className="py-24 px-6 border-t border-b border-[#FFE5D0] dark:border-white/5 bg-[#FFFFFF] dark:bg-[#050302] relative" id="pricing-section-container">
+        <div className="absolute inset-0 bg-radial-at-c from-[#FF5722]/5 via-transparent to-transparent pointer-events-none" />
         <div className="max-w-7xl mx-auto">
           <PricingCalculator />
         </div>
@@ -346,27 +345,27 @@ export default function LandingView() {
       {/* ------------------ 6. PREMIUM TRUST TESTIMONIALS ------------------ */}
       <section className="py-24 px-6 max-w-4xl mx-auto space-y-12 text-center" id="testimonials-section">
         <div className="space-y-4">
-          <span className="text-xs font-mono font-bold tracking-widest uppercase text-[#FF6B35] block">• AGENTS APPROVED •</span>
-          <h2 className="text-3xl sm:text-4xl font-sans font-extrabold text-white tracking-tight">
+          <span className="text-xs font-mono font-bold tracking-widest uppercase text-[#FF5722] dark:text-[#FF6B35] block">• AGENTS APPROVED •</span>
+          <h2 className="text-3xl sm:text-4xl font-sans font-extrabold text-[#1A1410] dark:text-white tracking-tight">
             Endorsed by Revenue Operatives
           </h2>
-          <p className="text-xs text-slate-500 uppercase tracking-widest font-mono">Real pipeline success across high-growth B2B enterprise SaaS</p>
+          <p className="text-xs text-[#6B5344] dark:text-slate-500 uppercase tracking-widest font-mono">Real pipeline success across high-growth B2B enterprise SaaS</p>
         </div>
 
-        <div className="bg-[#0C0806] rounded-3xl p-10 border border-[#FF6B35]/20 shadow-[0_0_55px_rgba(255,107,53,0.03)] text-left relative overflow-hidden group">
+        <div className="bg-[#F9F5F0] dark:bg-[#0C0806] rounded-3xl p-10 border border-[#FFE5D0] dark:border-[#FF6B35]/20 shadow-[0_4px_12px_rgba(255,87,34,0.08)] dark:shadow-[0_0_55px_rgba(255,107,53,0.03)] text-left relative overflow-hidden group">
           <div className="absolute top-0 right-0 w-32 h-32 bg-[#FF6B35]/5 rounded-full blur-2xl pointer-events-none" />
           
-          <p className="text-base sm:text-lg text-slate-300 italic leading-relaxed">
+          <p className="text-base sm:text-lg text-[#1A1410] dark:text-slate-300 italic leading-relaxed">
             &ldquo;Using Cadence&apos;s predictive precision tone algorithms, outbound open rates in our enterprise pipeline jumped from 14% to 54.2% within two weeks. We saved countless representative hours and secured double the actual meetings.&rdquo;
           </p>
           
-          <div className="flex items-center space-x-3 mt-8 pt-8 border-t border-white/5">
-            <div className="w-12 h-12 rounded-full bg-gradient-to-tr from-[#FF6B35] to-[#FF4500] text-white flex items-center justify-center font-black text-xs uppercase shadow-md shadow-[#FF6B35]/25">
+          <div className="flex items-center space-x-3 mt-8 pt-8 border-t border-[#FFE5D0] dark:border-white/5">
+            <div className="w-12 h-12 rounded-full bg-[#FF5722] text-white flex items-center justify-center font-black text-xs uppercase shadow-md shadow-[#FF5722]/25">
               AM
             </div>
             <div>
-              <h5 className="text-sm font-bold text-white">Andrew McArthur</h5>
-              <p className="text-xs text-slate-500">Head of Outbound Operations, CloudStorage Ltd</p>
+              <h5 className="text-sm font-bold text-[#1A1410] dark:text-white">Andrew McArthur</h5>
+              <p className="text-xs text-[#6B5344] dark:text-slate-500 font-medium">Head of Outbound Operations, CloudStorage Ltd</p>
             </div>
           </div>
         </div>
@@ -375,19 +374,19 @@ export default function LandingView() {
 
       {/* ------------------ 7. THE FINAL CALL-TO-ACTION ------------------ */}
       <section className="py-24 px-6 text-center max-w-3xl mx-auto space-y-8 relative z-20">
-        <div className="absolute -top-12 left-1/2 -translate-x-1/2 w-72 h-72 bg-[#FF6B35]/10 rounded-full blur-[100px] pointer-events-none select-none" />
+        <div className="absolute -top-12 left-1/2 -translate-x-1/2 w-72 h-72 bg-[#FF5722]/10 rounded-full blur-[100px] pointer-events-none select-none" />
         
-        <h2 className="text-4xl sm:text-5xl font-sans font-extrabold text-white tracking-tight">
+        <h2 className="text-4xl sm:text-5xl font-sans font-extrabold text-[#1A1410] dark:text-white tracking-tight">
           Ready to scale your outreach relevance?
         </h2>
         
-        <p className="text-sm text-slate-400 leading-relaxed max-w-lg mx-auto">
+        <p className="text-sm text-[#6B5344] dark:text-slate-400 leading-relaxed max-w-lg mx-auto">
           Create. Author. Optimize. Connect our B2B copywriters with your unique brand layouts inside our sandbox console.
         </p>
         
         <button
           onClick={() => setView("auth")}
-          className="relative overflow-hidden group px-10 py-4.5 bg-gradient-to-r from-[#FF5722] to-[#FF8C00] text-white text-xs font-black uppercase tracking-widest rounded-xl shadow-[0_0_35px_rgba(255,107,53,0.4)] hover:shadow-[0_0_50px_rgba(255,107,53,0.65)] hover:brightness-110 transition-all cursor-pointer inline-flex items-center space-x-2.5 active:scale-95"
+          className="relative overflow-hidden group px-10 py-4.5 bg-[#FF5722] hover:bg-[#E64A19] text-[#FFFFFF] text-xs font-black uppercase tracking-widest rounded-xl shadow-[0_4px_12px_rgba(255,87,34,0.15)] dark:shadow-[0_0_35px_rgba(255,107,53,0.4)] hover:shadow-[0_4px_22px_rgba(255,87,34,0.3)] transition-all cursor-pointer inline-flex items-center space-x-2.5 active:scale-95"
           id="last-cta-btn"
         >
           <span>Get Started Free</span>
@@ -397,10 +396,10 @@ export default function LandingView() {
 
 
       {/* ------------------ 8. PREMIUM METALLIC footer nav ------------------ */}
-      <footer className="border-t border-white/5 bg-[#030100] py-16 px-6 text-center text-xs text-slate-400 relative z-25">
+      <footer className="border-t border-[#FFE5D0] dark:border-white/5 bg-[#FFFFFF] dark:bg-[#030100] py-16 px-6 text-center text-xs text-[#6B5344] dark:text-slate-400 relative z-25">
         <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-8">
           <div className="flex items-center space-x-2">
-            <CadenceLogo textColorClass="text-white" />
+            <CadenceLogo textColorClass="text-[#1A1410] dark:text-white" />
           </div>
           
           <p className="font-mono text-[10px] uppercase tracking-wider text-slate-500">
@@ -408,13 +407,12 @@ export default function LandingView() {
           </p>
           
           <div className="flex space-x-6 text-[10px] font-bold uppercase tracking-wider text-slate-500">
-            <button onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} className="hover:text-white cursor-pointer transition-colors">Home</button>
-            <button onClick={() => setView("auth")} className="hover:text-white cursor-pointer transition-colors">Console Login</button>
-            <button onClick={() => scrollToSection("pricing-section-container")} className="hover:text-white cursor-pointer transition-colors">Pricing Specs</button>
+            <button onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} className="hover:text-brand-primary cursor-pointer transition-colors">Home</button>
+            <button onClick={() => setView("auth")} className="hover:text-brand-primary cursor-pointer transition-colors">Console Login</button>
+            <button onClick={() => scrollToSection("pricing-section-container")} className="hover:text-brand-primary cursor-pointer transition-colors">Pricing Specs</button>
           </div>
         </div>
       </footer>
-
     </div>
   );
 }

@@ -37,7 +37,8 @@ export default function Header() {
   useEffect(() => {
     const handleScroll = () => {
       const mainEl = document.querySelector("main");
-      const currentScroll = mainEl ? mainEl.scrollTop : window.scrollY;
+      const isMainScrollable = mainEl ? mainEl.scrollHeight > mainEl.clientHeight + 10 : false;
+      const currentScroll = isMainScrollable && mainEl ? mainEl.scrollTop : window.scrollY;
 
       if (currentView === "landing") {
         const comparisonEl = document.getElementById("landing-comparison-section");
@@ -45,12 +46,24 @@ export default function Header() {
         const pricingEl = document.getElementById("pricing-section-container");
         const testimonialsEl = document.getElementById("testimonials-section");
 
+        const getElScrollTop = (el: HTMLElement | null) => {
+          if (!el) return Infinity;
+          if (isMainScrollable && mainEl) {
+            const mainRect = mainEl.getBoundingClientRect();
+            const elRect = el.getBoundingClientRect();
+            return elRect.top - mainRect.top + mainEl.scrollTop - 140;
+          } else {
+            const elRect = el.getBoundingClientRect();
+            return elRect.top + window.scrollY - 140;
+          }
+        };
+
         const targetOffsets = [
           { id: "home", top: 0 },
-          { id: "comparison", top: comparisonEl ? (mainEl ? comparisonEl.offsetTop - 140 : comparisonEl.offsetTop - 140) : Infinity },
-          { id: "features", top: featuresEl ? (mainEl ? featuresEl.offsetTop - 140 : featuresEl.offsetTop - 140) : Infinity },
-          { id: "pricing", top: pricingEl ? (mainEl ? pricingEl.offsetTop - 140 : pricingEl.offsetTop - 140) : Infinity },
-          { id: "testimonials", top: testimonialsEl ? (mainEl ? testimonialsEl.offsetTop - 140 : testimonialsEl.offsetTop - 140) : Infinity }
+          { id: "comparison", top: getElScrollTop(comparisonEl) },
+          { id: "features", top: getElScrollTop(featuresEl) },
+          { id: "pricing", top: getElScrollTop(pricingEl) },
+          { id: "testimonials", top: getElScrollTop(testimonialsEl) }
         ];
 
         // Sort to check lower boundary first
@@ -59,7 +72,7 @@ export default function Header() {
         let detected = "home";
 
         for (const item of targetOffsets) {
-          if (item.top !== Infinity && currentScroll >= item.top) {
+          if (item.top !== Infinity && currentScroll >= item.top - 10) {
             detected = item.id;
             break;
           }
@@ -145,49 +158,37 @@ export default function Header() {
 
   const handleScrollLink = (id: string) => {
     const mainEl = document.querySelector("main");
-    if (currentView !== "landing") {
-      setView("landing");
-      setTimeout(() => {
-        const el = document.getElementById(id);
-        if (el) {
-          const offset = 90;
-          if (mainEl) {
-            mainEl.scrollTo({
-              top: el.offsetTop - offset,
-              behavior: "smooth"
-            });
-          } else {
-            const bodyRect = document.body.getBoundingClientRect().top;
-            const elementRect = el.getBoundingClientRect().top;
-            const elementPosition = elementRect - bodyRect;
-            const offsetPosition = elementPosition - offset;
-            window.scrollTo({
-              top: offsetPosition,
-              behavior: "smooth"
-            });
-          }
-        }
-      }, 200);
-    } else {
+    
+    const performScroll = () => {
       const el = document.getElementById(id);
       if (el) {
-        const offset = 90;
+        const offset = 100; // spacious offset below fixed header
+        const elRect = el.getBoundingClientRect();
+
+        // 1. Scroll mainEl if it's the scroll container
         if (mainEl) {
+          const mainRect = mainEl.getBoundingClientRect();
+          const targetScrollTop = elRect.top - mainRect.top + mainEl.scrollTop - offset;
           mainEl.scrollTo({
-            top: el.offsetTop - offset,
-            behavior: "smooth"
-          });
-        } else {
-          const bodyRect = document.body.getBoundingClientRect().top;
-          const elementRect = el.getBoundingClientRect().top;
-          const elementPosition = elementRect - bodyRect;
-          const offsetPosition = elementPosition - offset;
-          window.scrollTo({
-            top: offsetPosition,
+            top: targetScrollTop,
             behavior: "smooth"
           });
         }
+
+        // 2. Also scroll window to make sure we support window-level scrolling safely
+        const targetWindowScroll = elRect.top + window.scrollY - offset;
+        window.scrollTo({
+          top: targetWindowScroll,
+          behavior: "smooth"
+          });
       }
+    };
+
+    if (currentView !== "landing") {
+      setView("landing");
+      setTimeout(performScroll, 220);
+    } else {
+      performScroll();
     }
     setIsMobileMenuOpen(false);
   };
