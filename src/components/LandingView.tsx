@@ -42,19 +42,19 @@ export default function LandingView() {
   };
 
   return (
-    <div className="min-h-screen pb-24 overflow-x-hidden relative bg-transparent text-slate-900 dark:text-slate-100 select-none font-sans transition-all duration-300" id="landing-marketing-container">
+    <div className="min-h-screen flex flex-col overflow-x-hidden relative bg-transparent text-slate-900 dark:text-slate-100 select-none font-sans transition-all duration-300" id="landing-marketing-container">
       
       {/* GLOW BACKGROUND SYSTEM */}
-      <div className="absolute top-0 left-0 right-0 h-[800px] bg-gradient-to-b from-[#7F320D]/20 via-[#1A0A03]/5 to-transparent pointer-events-none select-none z-0" />
-      <div className="absolute top-[20%] left-[10%] w-[350px] h-[350px] bg-[#D45D00]/5 rounded-full blur-[120px] pointer-events-none select-none z-0" />
-      <div className="absolute top-[15%] right-[5%] w-[400px] h-[400px] bg-[#9D4EDD]/5 rounded-full blur-[130px] pointer-events-none select-none z-0" />
+      <div className="fixed top-0 left-0 right-0 h-[800px] bg-gradient-to-b from-[#7F320D]/20 via-[#1A0A03]/5 to-transparent pointer-events-none select-none z-0" />
+      <div className="fixed top-[20%] left-[10%] w-[350px] h-[350px] bg-[#D45D00]/10 rounded-full blur-[120px] pointer-events-none select-none z-0 animate-[ambientPulse_24s_infinite_ease-in-out]" />
+      <div className="fixed top-[15%] right-[5%] w-[400px] h-[400px] bg-[#9D4EDD]/8 rounded-full blur-[130px] pointer-events-none select-none z-0 animate-[ambientPulseReverse_28s_infinite_ease-in-out]" />
 
 
       {/* ------------------ 2. CINEMATIC HERO FIELD ------------------ */}
       <section className="relative pt-24 sm:pt-40 pb-28 px-6 text-center overflow-hidden z-20">
         
         {/* BACKGROUND GLOWING PULSE WAVEGUIDES (Soundwaves) */}
-        <div className="absolute inset-x-0 bottom-4 top-16 flex justify-between items-center px-4 sm:px-16 pointer-events-none select-none overflow-hidden opacity-25 sm:opacity-40 z-0">
+        <div className="fixed inset-x-0 bottom-4 top-16 flex justify-between items-center px-4 sm:px-16 pointer-events-none select-none overflow-hidden opacity-25 sm:opacity-40 z-0">
           
           {/* Left Wave Columns */}
           <div className="flex items-end space-x-1.5 sm:space-x-3.5 h-full pb-8">
@@ -81,10 +81,10 @@ export default function LandingView() {
 
         {/* FLOATING specular gloss 3D loops mirroring the image style */}
         {/* Torus - Top Right */}
-        <div className="absolute top-12 -right-16 md:right-10 w-64 h-64 sm:w-80 sm:h-80 pointer-events-none select-none z-10 opacity-80">
-          <svg viewBox="0 0 200 200" className="w-full h-full transform rotate-12 scale-110 drop-shadow-[0_20px_45px_rgba(255,107,53,0.25)] animate-[spin_60s_linear_infinite]">
+        <div className="fixed top-24 -right-16 md:right-10 w-64 h-64 sm:w-80 sm:h-80 pointer-events-none select-none z-10 opacity-80">
+          <svg viewBox="0 0 200 200" className="w-full h-full transform rotate-12 scale-110 animate-[spin_60s_linear_infinite]">
             <defs>
-              <linearGradient id="torus-3d-1" x1="0%" y1="0%" x2="100%" y2="100%">
+               <linearGradient id="torus-3d-1" x1="0%" y1="0%" x2="100%" y2="100%">
                 <stop offset="0%" stopColor="#FFA07A" stopOpacity="0.9" />
                 <stop offset="25%" stopColor="#FF6B35" stopOpacity="1" />
                 <stop offset="60%" stopColor="#5B1693" stopOpacity="0.95" />
@@ -100,8 +100,8 @@ export default function LandingView() {
         </div>
 
         {/* Torus - Bottom Left */}
-        <div className="absolute bottom-6 -left-16 md:left-12 w-60 h-60 sm:w-72 sm:h-72 pointer-events-none select-none z-10 opacity-75">
-          <svg viewBox="0 0 200 200" className="w-full h-full transform -rotate-45 drop-shadow-[0_20px_40px_rgba(255,107,53,0.2)] animate-[spin_55s_linear_infinite_reverse]">
+        <div className="fixed bottom-24 -left-16 md:left-12 w-60 h-60 sm:w-72 sm:h-72 pointer-events-none select-none z-10 opacity-75">
+          <svg viewBox="0 0 200 200" className="w-full h-full transform -rotate-45 animate-[spin_55s_linear_infinite_reverse]">
             <defs>
               <linearGradient id="torus-3d-2" x1="100%" y1="100%" x2="0%" y2="0%">
                 <stop offset="0%" stopColor="#FFAE5D" stopOpacity="0.9" />
@@ -211,7 +211,7 @@ export default function LandingView() {
 
 
       {/* ------------------ 3. BRAND POSITION COMPARISON ------------------ */}
-      <section className="border-t border-[#FFE5D0] dark:border-white/5 py-24 px-6 relative z-15 bg-[#FFFFFF] dark:bg-[#080504]/30 backdrop-blur-md transition-all duration-300" id="landing-comparison-section">
+      <section className="border-t border-[#FFE5D0] dark:border-white/5 py-24 px-6 relative z-15 bg-white/30 dark:bg-[#080504]/30 backdrop-blur-md transition-all duration-300" id="landing-comparison-section">
         <div className="max-w-7xl mx-auto space-y-16">
           <div className="text-center space-y-4">
             <span className="text-[#FF5722] dark:text-[#FF6B35] font-mono text-xs font-black uppercase tracking-widest block">• {t.tagline || "THE CONTEXT ENGINE DIFFERENCE"} •</span>
@@ -334,7 +334,7 @@ export default function LandingView() {
 
 
       {/* ------------------ 5. THE REVILO INTEGRATED PRICING ------------------ */}
-      <section className="py-24 px-6 border-t border-b border-[#FFE5D0] dark:border-white/5 bg-[#FFFFFF] dark:bg-[#050302] relative" id="pricing-section-container">
+      <section className="py-24 px-6 border-t border-b border-[#FFE5D0] dark:border-white/5 bg-white/35 dark:bg-[#050302]/35 backdrop-blur-md relative" id="pricing-section-container">
         <div className="absolute inset-0 bg-radial-at-c from-[#FF5722]/5 via-transparent to-transparent pointer-events-none" />
         <div className="max-w-7xl mx-auto">
           <PricingCalculator />
@@ -396,7 +396,7 @@ export default function LandingView() {
 
 
       {/* ------------------ 8. PREMIUM METALLIC footer nav ------------------ */}
-      <footer className="border-t border-[#FFE5D0] dark:border-white/5 bg-[#FFFFFF] dark:bg-[#030100] py-16 px-6 text-center text-xs text-[#6B5344] dark:text-slate-400 relative z-25">
+      <footer className="border-t border-[#FFE5D0]/30 dark:border-white/5 bg-transparent py-16 px-6 text-center text-xs text-[#6B5344] dark:text-slate-400 relative z-25 mt-auto">
         <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-8">
           <div className="flex items-center space-x-2">
             <CadenceLogo textColorClass="text-[#1A1410] dark:text-white" />

@@ -201,14 +201,14 @@ export default function Header() {
         <div className="flex items-center space-x-3.5">
           <div className="flex items-center space-x-1.5 cursor-pointer select-none" onClick={() => setView("landing")}>
             <CadenceLogo />
-            <span className="px-1.5 py-0.5 text-[8px] font-mono tracking-widest text-brand-primary bg-brand-primary/10 rounded-md font-bold uppercase hidden sm:inline-block">
+            <span className="px-1.5 py-0.5 text-[8px] font-mono tracking-widest text-brand-primary bg-brand-primary/10 rounded-md font-bold uppercase hidden lg:inline-block">
               Pro
             </span>
           </div>
 
-          {/* Connected Live Indicator and Current Page Status */}
-          <div className="flex items-center space-x-1.5 border-l border-slate-200 dark:border-white/10 pl-3.5 select-none shrink-0">
-            <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse hidden sm:inline-block" />
+          {/* Connected Live Indicator and Current Page Status - Desktop only */}
+          <div className="hidden lg:flex items-center space-x-1.5 border-l border-slate-200 dark:border-white/10 pl-3.5 select-none shrink-0">
+            <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
             <span className="text-[10px] font-mono font-black uppercase tracking-widest text-brand-primary opacity-90">
               {getPageStatus()}
             </span>
@@ -368,7 +368,7 @@ export default function Header() {
             {isLangOpen && (
               <>
                 <div className="fixed inset-0 z-40" onClick={() => setIsLangOpen(false)} />
-                <div className="absolute right-0 mt-2 w-44 bg-white dark:bg-[#11131e] backdrop-blur-md rounded-xl shadow-2xl border border-slate-200 dark:border-white/5 py-1.5 z-50 text-xs text-left">
+                <div className="absolute right-0 mt-2 w-44 bg-white dark:bg-[#11131e] backdrop-blur-md rounded-xl shadow-2xl border border-slate-200 dark:border-white/5 py-1.5 z-50 text-xs text-left max-h-[240px] overflow-y-auto scrollbar-thin">
                   <div className="px-3 py-1 border-b border-slate-100 dark:border-white/5 pb-1.5 mb-1 text-[10px] uppercase font-bold text-slate-500 tracking-wider">
                     Select Language
                   </div>
@@ -458,7 +458,10 @@ export default function Header() {
 
       {/* Mobile Responsive Navigation Drawer Panel */}
       {isMobileMenuOpen && (
-        <div className="lg:hidden mt-3.5 pt-3.5 border-t border-slate-200 dark:border-white/5 space-y-3 animate-fade-in z-50 relative">
+        <>
+          {/* Click shadow backdrop outside to dismiss menu */}
+          <div className="fixed inset-0 z-40 bg-slate-900/15 dark:bg-black/35 backdrop-blur-[1px] lg:hidden animate-fade-in" onClick={() => setIsMobileMenuOpen(false)} />
+          <div className="lg:hidden absolute right-4 sm:right-6 top-[64px] w-72 sm:w-80 bg-white/95 dark:bg-[#0b0c16]/98 backdrop-blur-xl border border-slate-200 dark:border-white/10 p-5 rounded-2xl shadow-2xl space-y-4 animate-fade-in z-50 max-h-[72vh] overflow-y-auto pr-1 pb-4 scrollbar-thin">
           
           {/* Landing specific or logged out navigation links */}
           {currentView === "landing" || !isLoggedIn ? (
@@ -660,6 +663,7 @@ export default function Header() {
           </div>
 
         </div>
+        </>
       )}
     </header>
   );

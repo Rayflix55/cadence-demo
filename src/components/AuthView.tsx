@@ -219,7 +219,7 @@ export default function AuthView() {
         initial={{ opacity: 0, y: 15 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.3 }}
-        className="bg-white dark:bg-cadence-slate-900 border border-cadence-slate-200 dark:border-cadence-slate-800 rounded-2xl shadow-xl p-8 transition-colors relative overflow-hidden"
+        className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-xl p-8 transition-colors relative overflow-hidden"
       >
         {/* Ambient subtle outline glow effect */}
         <div className="absolute top-0 left-0 right-0 h-[3px] bg-gradient-to-r from-brand-primary via-brand-secondary to-orange-500" />
@@ -260,7 +260,7 @@ export default function AuthView() {
                 required
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
-                className="w-full pl-9 pr-4 py-3 bg-slate-50 dark:bg-cadence-slate-850 border border-slate-200 dark:border-cadence-slate-750 rounded-xl text-xs focus:ring-2 focus:ring-primary focus:outline-none dark:text-white placeholder-slate-400 font-medium"
+                className="w-full pl-9 pr-4 py-3 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl text-xs focus:ring-2 focus:ring-primary focus:outline-none dark:text-white placeholder-slate-400 dark:placeholder-slate-500 font-medium"
                 placeholder={isSignUp ? "e.g. sarahChen85" : "Your username"}
                 id="auth-username-input"
               />
@@ -285,7 +285,7 @@ export default function AuthView() {
                 required
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full pl-9 pr-4 py-3 bg-slate-50 dark:bg-cadence-slate-850 border border-slate-200 dark:border-cadence-slate-750 rounded-xl text-xs focus:ring-2 focus:ring-primary focus:outline-none dark:text-white placeholder-slate-400 font-medium"
+                className="w-full pl-9 pr-4 py-3 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl text-xs focus:ring-2 focus:ring-primary focus:outline-none dark:text-white placeholder-slate-400 dark:placeholder-slate-500 font-medium"
                 placeholder="••••••••"
                 id="auth-password-input"
               />
@@ -315,7 +315,7 @@ export default function AuthView() {
                   required
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
-                  className="w-full pl-9 pr-4 py-3 bg-slate-50 dark:bg-cadence-slate-850 border border-slate-200 dark:border-cadence-slate-750 rounded-xl text-xs focus:ring-2 focus:ring-primary focus:outline-none dark:text-white placeholder-slate-400 font-medium"
+                  className="w-full pl-9 pr-4 py-3 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl text-xs focus:ring-2 focus:ring-primary focus:outline-none dark:text-white placeholder-slate-400 dark:placeholder-slate-500 font-medium"
                   placeholder="••••••••"
                   id="auth-confirm-password-input"
                 />

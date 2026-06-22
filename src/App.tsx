@@ -7,6 +7,7 @@ import DashboardView from "./components/DashboardView";
 import EmailComposerView from "./components/EmailComposerView";
 import AuthView from "./components/AuthView";
 import CadenceLogo from "./components/CadenceLogo";
+import AnimatedBackground from "./components/AnimatedBackground";
 import { ArrowRight, Settings } from "lucide-react";
 
 export default function App() {
@@ -52,6 +53,31 @@ export default function App() {
     }
   };
 
+  const handleFooterScrollLink = (id: string) => {
+    const mainEl = document.querySelector("main");
+    const performScroll = () => {
+      const el = document.getElementById(id);
+      if (el) {
+        const offset = 100;
+        const elRect = el.getBoundingClientRect();
+        if (mainEl) {
+          const mainRect = mainEl.getBoundingClientRect();
+          const targetScrollTop = elRect.top - mainRect.top + mainEl.scrollTop - offset;
+          mainEl.scrollTo({ top: targetScrollTop, behavior: "smooth" });
+        }
+        const targetWindowScroll = elRect.top + window.scrollY - offset;
+        window.scrollTo({ top: targetWindowScroll, behavior: "smooth" });
+      }
+    };
+
+    if (currentView !== "landing") {
+      setView("landing");
+      setTimeout(performScroll, 220);
+    } else {
+      performScroll();
+    }
+  };
+
   if (sessionIsLoading) {
     return (
       <div className="min-h-screen bg-brand-bg flex flex-col justify-center items-center text-brand-text font-sans space-y-4" id="applet-bootloader-screen">
@@ -72,6 +98,7 @@ export default function App() {
         <div className="ambient-blob-1" />
         <div className="ambient-blob-2" />
         <div className="ambient-blob-3" />
+        <AnimatedBackground />
         <div className="absolute inset-0 grid-mesh-lines opacity-40 dark:opacity-60 pointer-events-none" />
       </div>
 
@@ -111,23 +138,18 @@ export default function App() {
 
         {/* Global Footer (Render only when not on landing page) */}
         {currentView !== "landing" && (
-          <footer className="border-t border-cadence-slate-200 dark:border-slate-800 bg-white dark:bg-cadence-slate-900 py-12 px-6 text-center text-xs text-cadence-slate-500 transition-colors mt-auto">
-            <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+          <footer className="border-t border-[#FFE5D0]/30 dark:border-white/5 bg-transparent py-16 px-6 text-center text-xs text-[#6B5344] dark:text-slate-400 relative z-25 mt-auto">
+            <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-8">
               <div className="flex items-center space-x-2">
-                <CadenceLogo className="h-6" />
+                <CadenceLogo textColorClass="text-[#1A1410] dark:text-white" />
+                <span className="text-[10px] uppercase font-bold tracking-widest font-mono text-[#D45D00] dark:text-[#FFB84D] bg-[#FFE5D0]/50 dark:bg-[#FF6B35]/15 px-2 py-0.5 rounded">v2.0</span>
               </div>
-              <p className="font-mono">© 2026 Cadence. Crafted for full-stack B2B SaaS outreach enablement.</p>
-              <div className="flex space-x-4">
-                <button onClick={() => setView("landing")} className="hover:text-primary cursor-pointer">Home</button>
-                {!isLoggedIn ? (
-                  <button onClick={() => setView("auth")} className="hover:text-primary cursor-pointer">Sign In / Sign Up</button>
-                ) : (
-                  <>
-                    <button onClick={() => setView("onboarding")} className="hover:text-primary cursor-pointer">Onboarding Wizard</button>
-                    <button onClick={() => setView("dashboard")} className="hover:text-primary cursor-pointer">Dashboard</button>
-                  </>
-                )}
-                <a href="#pricing-calculator-container" className="hover:text-primary cursor-pointer">Pricing Specs</a>
+              <p className="text-[11px] font-mono tracking-wide opacity-80 max-w-sm sm:max-w-none">
+                © {new Date().getFullYear()} Cadence Labs. Continuous context outreach sequence engine. All rights reserved. Code crafted with strict precision metrics.
+              </p>
+              <div className="flex items-center space-x-4 font-extrabold uppercase text-[10px] tracking-widest">
+                <button onClick={() => handleFooterScrollLink("features-comparison-container")} className="hover:text-brand-primary cursor-pointer transition-colors">Outreach Comparison</button>
+                <button onClick={() => handleFooterScrollLink("pricing-section-container")} className="hover:text-brand-primary cursor-pointer transition-colors">Pricing Specs</button>
               </div>
             </div>
           </footer>
