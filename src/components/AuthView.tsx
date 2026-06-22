@@ -210,7 +210,7 @@ export default function AuthView() {
         <div className="flex justify-center mb-2">
           <CadenceLogo />
         </div>
-        <span className="px-2.5 py-0.5 text-[9px] font-mono tracking-wider text-[#FF6B35] dark:text-[#FFB84D] bg-[#FFF2EB] dark:bg-[#FF6B35]/15 rounded-full font-bold uppercase inline-block">
+        <span className="px-2.5 py-0.5 text-[9px] font-mono tracking-wider text-brand-primary bg-brand-primary/10 rounded-full font-bold uppercase inline-block">
           Predictive Outbound Sandbox
         </span>
       </div>
@@ -222,7 +222,7 @@ export default function AuthView() {
         className="bg-white dark:bg-cadence-slate-900 border border-cadence-slate-200 dark:border-cadence-slate-800 rounded-2xl shadow-xl p-8 transition-colors relative overflow-hidden"
       >
         {/* Ambient subtle outline glow effect */}
-        <div className="absolute top-0 left-0 right-0 h-[3px] bg-gradient-to-r from-[#FF6B35] via-[#FFB84D] to-[#FF4500]" />
+        <div className="absolute top-0 left-0 right-0 h-[3px] bg-gradient-to-r from-brand-primary via-brand-secondary to-orange-500" />
         
         <div className="space-y-1 mb-6">
           <h2 className="text-xl font-display font-black text-slate-900 dark:text-white tracking-tight">
@@ -326,7 +326,7 @@ export default function AuthView() {
           <button
             type="submit"
             disabled={isLoading}
-            className="w-full py-3 px-4 bg-gradient-to-tr from-[#FF6B35] to-[#FF4500] hover:from-[#FF4500] hover:to-[#FF5722] text-white text-xs font-extrabold uppercase tracking-widest rounded-xl shadow-lg shadow-[#FF6B35]/15 flex items-center justify-center space-x-2 transition-all cursor-pointer active:scale-98 disabled:opacity-50 mt-2"
+            className="w-full py-3 px-4 btn-primary-custom text-white text-xs font-extrabold uppercase tracking-widest rounded-xl flex items-center justify-center space-x-2 transition-all cursor-pointer active:scale-98 disabled:opacity-50 mt-2"
             id="auth-submit-btn"
           >
             {isLoading ? (
@@ -348,7 +348,7 @@ export default function AuthView() {
               setError("");
               setConfirmPassword("");
             }}
-            className="text-xs font-semibold text-[#FF6B35] hover:text-[#FF4500] dark:text-[#FFB84D] dark:hover:text-[#FF9D5C] transition-colors cursor-pointer"
+            className="text-xs font-semibold text-brand-primary hover:opacity-85 transition-colors cursor-pointer"
             id="auth-toggle-btn"
           >
             {isSignUp ? t.toggleToLogin : t.toggleToSignup}
@@ -358,7 +358,7 @@ export default function AuthView() {
 
       {/* Trust guarantees badge footer */}
       <div className="flex items-center justify-center space-x-2 text-slate-400 dark:text-slate-500 text-[10px] mt-6 select-none leading-none">
-        <ShieldCheck className="w-3.5 h-3.5 text-[#FF6B35]" />
+        <ShieldCheck className="w-3.5 h-3.5 text-brand-primary" />
         <span className="uppercase tracking-widest font-mono font-bold text-center leading-relaxed">
           {t.trustText}
         </span>

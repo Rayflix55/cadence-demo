@@ -3,9 +3,10 @@ import React from "react";
 interface CadenceLogoProps {
   className?: string;
   iconOnly?: boolean;
+  textColorClass?: string;
 }
 
-export default function CadenceLogo({ className = "h-8", iconOnly = false }: CadenceLogoProps) {
+export default function CadenceLogo({ className = "h-8", iconOnly = false, textColorClass }: CadenceLogoProps) {
   return (
     <div className={`inline-flex items-center space-x-2 ${className}`} id="cadence-brand-logo">
       {/* Dynamic high-quality continuous trace logo SVG */}
@@ -13,14 +14,14 @@ export default function CadenceLogo({ className = "h-8", iconOnly = false }: Cad
         viewBox="0 0 100 100"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
-        className="w-8 h-8 text-[#FF6B35] dark:text-[#FFB84D] hover:scale-105 transition-transform"
+        className="w-8 h-8 text-brand-primary hover:scale-105 transition-transform"
       >
         {/* Glow Filter */}
         <defs>
           <linearGradient id="logo-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#FF6B35" />
-            <stop offset="50%" stopColor="#FFB84D" />
-            <stop offset="100%" stopColor="#FF4500" />
+            <stop offset="0%" stopColor="var(--primary-color)" />
+            <stop offset="50%" stopColor="var(--secondary-color)" />
+            <stop offset="100%" stopColor="var(--button-active)" />
           </linearGradient>
           <filter id="beauty-glow" x="-20%" y="-20%" width="140%" height="140%">
             <feGaussianBlur stdDeviation="3" result="blur" />
@@ -40,13 +41,13 @@ export default function CadenceLogo({ className = "h-8", iconOnly = false }: Cad
 
         {/* Interactive signal particles */}
         <circle cx="30" cy="65" r="4" fill="white" className="animate-ping" />
-        <circle cx="54" cy="50" r="4.5" fill="#FFB84D" />
-        <circle cx="78" cy="40" r="4" fill="#FF6B35" />
+        <circle cx="54" cy="50" r="4.5" fill="var(--secondary-color)" />
+        <circle cx="78" cy="40" r="4" fill="var(--primary-color)" />
       </svg>
 
       {!iconOnly && (
-        <span className="font-display font-black text-xl tracking-tighter text-slate-900 dark:text-white flex items-center">
-          cadence<span className="text-[#FF6B35] dark:text-[#FFB84D] font-normal">.ai</span>
+        <span className={`font-display font-black text-xl tracking-tighter flex items-center ${textColorClass || "text-brand-text"}`}>
+          cadence<span className="text-brand-primary font-normal">.ai</span>
         </span>
       )}
     </div>

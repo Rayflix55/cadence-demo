@@ -445,18 +445,16 @@ export default function EmailComposerView() {
                         />
                       </div>
                     </div>
-                  </div>
-
-                  {/* Rate 2 */}
+                  </div>                   {/* Rate 2 */}
                   <div className="bg-cadence-slate-50 dark:bg-cadence-slate-850 rounded-2xl p-4 border border-cadence-slate-100 dark:border-cadence-slate-800">
                     <span className="text-[11px] font-bold text-cadence-slate-400 uppercase block">Predicted Click-Through (CTR)</span>
                     <div className="flex items-center space-x-4 mt-2">
-                      <strong className="text-3xl font-display font-extrabold text-[#FF6B35]">
+                      <strong className="text-3xl font-display font-extrabold text-brand-primary">
                         {variants[activeIndex]?.predictedClickRate}%
                       </strong>
                       <div className="flex-1 h-2 bg-cadence-slate-200 dark:bg-cadence-slate-800 rounded-full overflow-hidden">
                         <div 
-                          className="h-full bg-[#FF6B35] rounded-full transition-all duration-500" 
+                          className="h-full bg-brand-primary rounded-full transition-all duration-500" 
                           style={{ width: `${variants[activeIndex]?.predictedClickRate || 0}%` }} 
                         />
                       </div>
@@ -466,7 +464,7 @@ export default function EmailComposerView() {
 
                 <div className="mt-4 flex flex-col sm:flex-row sm:items-center justify-between border-t border-cadence-slate-100 dark:border-cadence-slate-800 pt-4 gap-3 text-xs">
                   {winningIndex === activeIndex ? (
-                    <span className="px-3 py-1 bg-[#FF6B35]/10 border border-[#FF6B35]/20 text-[#FF6B35] font-bold rounded-lg flex items-center space-x-1.5">
+                    <span className="px-3 py-1 bg-brand-primary/10 border border-brand-primary/20 text-brand-primary font-bold rounded-lg flex items-center space-x-1.5">
                       <Check className="w-4 h-4" />
                       <span>Marked as Outbound Winner</span>
                     </span>

@@ -6,6 +6,7 @@ import OnboardingWizard from "./components/OnboardingWizard";
 import DashboardView from "./components/DashboardView";
 import EmailComposerView from "./components/EmailComposerView";
 import AuthView from "./components/AuthView";
+import CadenceLogo from "./components/CadenceLogo";
 import { ArrowRight, Settings } from "lucide-react";
 
 export default function App() {
@@ -53,10 +54,10 @@ export default function App() {
 
   if (sessionIsLoading) {
     return (
-      <div className="min-h-screen bg-[#030712] flex flex-col justify-center items-center text-white font-sans space-y-4" id="applet-bootloader-screen">
+      <div className="min-h-screen bg-brand-bg flex flex-col justify-center items-center text-brand-text font-sans space-y-4" id="applet-bootloader-screen">
         <div className="relative">
-          <div className="w-12 h-12 border-4 border-[#FF6B35]/20 border-t-[#FF6B35] rounded-full animate-spin" />
-          <div className="absolute inset-0 flex items-center justify-center font-bold text-xs text-[#FFB84D]">C</div>
+          <div className="w-12 h-12 border-4 border-brand-primary/20 border-t-brand-primary rounded-full animate-spin" />
+          <div className="absolute inset-0 flex items-center justify-center font-bold text-xs text-brand-secondary">C</div>
         </div>
         <p className="text-xs font-mono text-slate-400 animate-pulse tracking-widest uppercase">Verifying session...</p>
       </div>
@@ -64,13 +65,21 @@ export default function App() {
   }
 
   return (
-    <div className="min-h-screen flex flex-col bg-b2b-bg-light dark:bg-[#0A0A0A] text-cadence-slate-800 dark:text-cadence-slate-100 transition-colors duration-250 font-sans" id="applet-viewport-root">
+    <div className="min-h-screen flex flex-col bg-brand-bg text-brand-text transition-all duration-300 font-sans relative animated-ambient-bg pt-[73px]" id="applet-viewport-root">
       
-      {/* 1. Global Header Platform Banner (Top Nav Only when NOT on landing) */}
-      {currentView !== "landing" && <Header />}
+      {/* GLOBAL SUBTLE ANIMATED SPECTRAL BACKDROP LAYER */}
+      <div className="animated-blobs-layer">
+        <div className="ambient-blob-1" />
+        <div className="ambient-blob-2" />
+        <div className="ambient-blob-3" />
+        <div className="absolute inset-0 grid-mesh-lines opacity-40 dark:opacity-60 pointer-events-none" />
+      </div>
+
+      {/* 1. Global Header Platform Banner (Sticky across all views, including Landing Page) */}
+      <Header />
 
       {/* 2. Platform Content container (No Sidebar) - Edge-to-edge for landing */}
-      <main className="flex-1 flex flex-col overflow-y-auto">
+      <main className="flex-1 flex flex-col overflow-y-auto relative z-10">
         {currentView === "landing" ? (
           renderView()
         ) : (
@@ -105,10 +114,7 @@ export default function App() {
           <footer className="border-t border-cadence-slate-200 dark:border-slate-800 bg-white dark:bg-cadence-slate-900 py-12 px-6 text-center text-xs text-cadence-slate-500 transition-colors mt-auto">
             <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
               <div className="flex items-center space-x-2">
-                <div className="w-6 h-6 rounded-md bg-primary flex items-center justify-center font-bold text-white text-[11px]">
-                  C
-                </div>
-                <span className="font-display font-semibold text-cadence-slate-800 dark:text-white">Cadence Sales AI</span>
+                <CadenceLogo className="h-6" />
               </div>
               <p className="font-mono">© 2026 Cadence. Crafted for full-stack B2B SaaS outreach enablement.</p>
               <div className="flex space-x-4">

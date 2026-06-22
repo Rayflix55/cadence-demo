@@ -1,5 +1,7 @@
+import { useState } from "react";
 import { useStore } from "../store";
 import PricingCalculator from "./PricingCalculator";
+import CadenceLogo from "./CadenceLogo";
 import { TRANSLATIONS, Language } from "../utils/translations";
 import { 
   Sparkles, 
@@ -13,11 +15,22 @@ import {
   CheckCircle,
   HelpCircle,
   Clock,
-  Play
+  Play,
+  Sun,
+  Moon,
+  ChevronDown
 } from "lucide-react";
 
+const LANGUAGES = [
+  { code: "en", name: "English", flag: "🇺🇸", label: "EN" },
+  { code: "hi", name: "हिन्दी", flag: "🇮🇳", label: "HI" },
+  { code: "es", name: "Español", flag: "🇪🇸", label: "ES" },
+  { code: "fr", name: "Français", flag: "🇫🇷", label: "FR" },
+  { code: "de", name: "Deutsch", flag: "🇩🇪", label: "DE" }
+] as const;
+
 export default function LandingView() {
-  const { setView, language, isLoggedIn } = useStore();
+  const { setView, language } = useStore();
   const langKey = (language as Language) || "en";
   const t = TRANSLATIONS[langKey] || TRANSLATIONS.en;
 
@@ -29,103 +42,12 @@ export default function LandingView() {
   };
 
   return (
-    <div className="min-h-screen pb-24 overflow-x-hidden relative bg-[#040201] text-slate-100 select-none font-sans" id="landing-marketing-container">
+    <div className="min-h-screen pb-24 overflow-x-hidden relative bg-transparent text-slate-900 dark:text-slate-100 select-none font-sans transition-all duration-300" id="landing-marketing-container">
       
       {/* GLOW BACKGROUND SYSTEM */}
       <div className="absolute top-0 left-0 right-0 h-[800px] bg-gradient-to-b from-[#7F320D]/20 via-[#1A0A03]/5 to-transparent pointer-events-none select-none z-0" />
       <div className="absolute top-[20%] left-[10%] w-[350px] h-[350px] bg-[#D45D00]/5 rounded-full blur-[120px] pointer-events-none select-none z-0" />
       <div className="absolute top-[15%] right-[5%] w-[400px] h-[400px] bg-[#9D4EDD]/5 rounded-full blur-[130px] pointer-events-none select-none z-0" />
-
-      {/* ------------------ 1. PREMIUM REVILO HEADER NAV ------------------ */}
-      <header className="max-w-7xl mx-auto px-6 py-6 flex items-center justify-between relative z-50">
-        {/* Brand asterisk Logo */}
-        <div className="flex items-center space-x-2.5 cursor-pointer" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}>
-          <div className="relative flex items-center justify-center">
-            {/* Pulsing glow background of logo */}
-            <div className="absolute w-7 h-7 rounded-full bg-[#FF6B35]/35 blur-md" />
-            
-            {/* Brand Orange Asterisk Symbol */}
-            <svg viewBox="0 0 100 100" className="w-8 h-8 text-[#FF6B35]" fill="currentColor">
-              {/* Custom refined 8-point artistic asterisk */}
-              <path d="M50 15v70M15 50h70M25 25l50 50M25 75l50-50" stroke="currentColor" strokeWidth="15" strokeLinecap="round" />
-            </svg>
-          </div>
-          
-          <span className="font-sans font-extrabold text-lg tracking-tight text-white flex items-center">
-            Revilo<span className="text-[#FFB84D] text-xs font-mono ml-1 uppercase bg-[#FF6B35]/20 px-1.5 py-0.5 rounded-md scale-90">AI</span>
-          </span>
-        </div>
-
-        {/* Center menu Capsule Pill */}
-        <nav className="hidden md:flex items-center space-x-1 bg-white/5 border border-white/10 backdrop-blur-xl px-2 py-1.5 rounded-full shadow-inner shadow-black/40">
-          <button 
-            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-            className="px-5 py-2 bg-[#2D1B10]/90 border border-[#FF6B35]/25 text-white text-xs font-extrabold tracking-wide uppercase rounded-full shadow-sm cursor-pointer select-none"
-          >
-            Home
-          </button>
-          
-          <button 
-            onClick={() => scrollToSection("landing-comparison-section")}
-            className="px-5 py-2 text-slate-400 hover:text-white transition-colors text-xs font-bold uppercase tracking-wide cursor-pointer"
-          >
-            About
-          </button>
-          
-          <button 
-            onClick={() => scrollToSection("testimonials-section")}
-            className="px-5 py-2 text-slate-400 hover:text-white transition-colors text-xs font-bold uppercase tracking-wide cursor-pointer"
-          >
-            Testimonials
-          </button>
-          
-          <button 
-            onClick={() => scrollToSection("pricing-section-container")}
-            className="px-5 py-2 text-slate-400 hover:text-white transition-colors text-xs font-bold uppercase tracking-wide cursor-pointer"
-          >
-            Pricing
-          </button>
-          
-          <button 
-            onClick={() => scrollToSection("features-section")}
-            className="px-5 py-2 text-slate-400 hover:text-white transition-colors text-xs font-bold uppercase tracking-wide cursor-pointer"
-          >
-            Blog
-          </button>
-        </nav>
-
-        {/* Action button Deck */}
-        <div className="flex items-center space-x-4">
-          {isLoggedIn ? (
-            <button 
-              onClick={() => setView("dashboard")}
-              className="px-6 py-2.5 bg-white/5 hover:bg-white/10 border border-white/10 text-white rounded-full text-xs font-extrabold uppercase tracking-widest cursor-pointer active:scale-95 transition-all"
-            >
-              Console Workspace
-            </button>
-          ) : (
-            <>
-              <button 
-                onClick={() => setView("auth")}
-                className="hidden sm:inline-block text-slate-300 hover:text-white text-xs font-extrabold uppercase tracking-wide px-3 cursor-pointer select-none transition-colors"
-              >
-                Sign Up
-              </button>
-              
-              {/* Premium Highly-Glossy Orange Log in Button */}
-              <button 
-                onClick={() => setView("auth")}
-                className="relative overflow-hidden group px-6 py-2.5 bg-gradient-to-r from-[#FF5722] via-[#FF6B35] to-[#FF8C00] hover:brightness-110 active:scale-95 text-white font-extrabold text-xs uppercase tracking-widest rounded-xl transition-all duration-300 shadow-[0_0_30px_rgba(255,107,53,0.5)] border border-white/20 cursor-pointer min-h-[44px]"
-                id="landing-header-login-btn"
-              >
-                <span className="relative z-10">Log in</span>
-                {/* Secondary reflective overlay glaze */}
-                <div className="absolute inset-0 bg-gradient-to-t from-transparent via-white/15 to-transparent z-0 pointer-events-none transform -skew-y-12" />
-              </button>
-            </>
-          )}
-        </div>
-      </header>
 
 
       {/* ------------------ 2. CINEMATIC HERO FIELD ------------------ */}
@@ -228,21 +150,19 @@ export default function LandingView() {
             </div>
             
             <div className="text-left leading-tight">
-              <p className="text-white font-extrabold text-sm sm:text-base tracking-tight font-sans">602+</p>
-              <p className="text-slate-400 font-bold text-[10px] tracking-wide uppercase">Active Users</p>
+              <p className="text-slate-900 dark:text-white font-extrabold text-sm sm:text-base tracking-tight font-sans">602+</p>
+              <p className="text-slate-500 dark:text-slate-400 font-bold text-[10px] tracking-wide uppercase">{t.activeUsers || "Active Users"}</p>
             </div>
           </div>
 
           {/* Heavy visual typography pairing title */}
-          <h1 className="text-5xl sm:text-7xl font-sans font-extrabold text-white tracking-tight leading-[1.05] max-w-3xl mx-auto">
-            AI-Powered Sales with <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#FFB84D] via-white to-white">Superior Precision</span>
+          <h1 className="text-4xl sm:text-7xl font-sans font-extrabold text-slate-900 dark:text-white tracking-tight leading-[1.05] max-w-3xl mx-auto">
+            {t.heroTitle}
           </h1>
 
           {/* Gold tint tan mid-contrast clean paragraph block */}
-          <p className="text-sm sm:text-base text-slate-450 text-slate-400 max-w-xl mx-auto leading-relaxed">
-            Predict, optimize, and close deals faster powered by cutting-edge
-            automation that feels as intuitive as your best sales rep.
+          <p className="text-sm sm:text-base text-slate-600 dark:text-slate-400 max-w-xl mx-auto leading-relaxed">
+            {t.heroSubtitle}
           </p>
 
           {/* Epic CTA primary Action Button */}
@@ -253,12 +173,12 @@ export default function LandingView() {
               id="landing-hero-demo-cta-btn"
             >
               {/* Hot Fire gradient background core overlay */}
-              <div className="absolute inset-0 bg-gradient-to-r from-[#E03E00] via-[#FF6B35] to-[#FFA07A] group-hover:opacity-95 transition-all" />
+              <div className="absolute inset-0 bg-gradient-to-r from-[#E03E00] via-[#FF6B35] to-[#FFA07A] group-hover:brightness-110 transition-all" />
               {/* SPECULAR glass glaze line across key */}
               <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent transform -skew-x-12 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-[1200ms] ease-out pointer-events-none" />
               <span className="relative z-10 flex items-center justify-center space-x-2.5">
-                <span>Request A Demo</span>
-                <ArrowRight className="w-4 h-4 text-[#FFF] animate-pulse" />
+                <span>{t.getStartedBtn}</span>
+                <ArrowRight className="w-4 h-4 text-white animate-pulse" />
               </span>
             </button>
           </div>
@@ -291,28 +211,28 @@ export default function LandingView() {
 
 
       {/* ------------------ 3. BRAND POSITION COMPARISON ------------------ */}
-      <section className="border-t border-[#FF6B35]/10 dark:border-white/5 py-24 px-6 relative z-15 bg-[#080504]" id="landing-comparison-section">
+      <section className="border-t border-[#FF6B35]/10 dark:border-white/5 py-24 px-6 relative z-15 bg-white/30 dark:bg-[#080504]/30 backdrop-blur-md transition-all duration-300" id="landing-comparison-section">
         <div className="max-w-7xl mx-auto space-y-16">
           <div className="text-center space-y-4">
-            <span className="text-[#FF6B35] font-mono text-xs font-black uppercase tracking-widest block">• THE CONTEXT ENGINE DIFFERENCE •</span>
-            <h2 className="text-3xl sm:text-5xl font-sans font-extrabold text-white tracking-tight">
-              The Outbound Cold Outreach Gap
+            <span className="text-[#FF6B35] font-mono text-xs font-black uppercase tracking-widest block">• {t.tagline || "THE CONTEXT ENGINE DIFFERENCE"} •</span>
+            <h2 className="text-3xl sm:text-5xl font-sans font-extrabold text-slate-900 dark:text-white tracking-tight">
+              {t.featuresTitle || "The Outbound Cold Outreach Gap"}
             </h2>
-            <p className="text-sm text-slate-400 max-w-lg mx-auto">
-              How traditional bulk campaign lists fail compared side-by-side with Revilo&apos;s context orchestrations.
+            <p className="text-sm text-slate-500 dark:text-slate-400 max-w-lg mx-auto">
+              {t.featuresSubtitle || "How traditional bulk campaign lists fail compared side-by-side with Cadence's context orchestrations."}
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             
             {/* Bad Outbox Panel */}
-            <div className="bg-[#0B0908] p-8 sm:p-10 rounded-3xl border border-red-500/10 shadow-lg space-y-6">
+            <div className="bg-slate-50/70 dark:bg-[#0B0908] p-8 sm:p-10 rounded-3xl border border-red-500/10 shadow-lg space-y-6 transition-all">
               <div className="flex items-center space-x-2.5 text-red-500 font-extrabold text-xs uppercase tracking-widest font-mono">
                 <TrendingDown className="w-4 h-4 text-red-500 animate-pulse" />
                 <span>Legacy Spreads: Bulk Standard</span>
               </div>
               
-              <h4 className="text-2xl font-bold text-white tracking-tight">Mechanical Mail Merges</h4>
+              <h4 className="text-2xl font-bold text-slate-900 dark:text-white tracking-tight">Mechanical Mail Merges</h4>
               
               <p className="text-xs text-slate-400 leading-relaxed">
                 Sales pipelines copy-paste boilerplate sequences containing simplistic tokens like <code className="bg-red-950/30 px-1.5 py-0.5 rounded border border-red-900/20">{"{{First Name}}"}</code>. Recipients instantly flag this as a cold automated sequence. Outreach response logs collapse below 3% efficiency.
@@ -334,14 +254,14 @@ export default function LandingView() {
               </div>
             </div>
 
-            {/* Revilo Outbox Panel */}
-            <div className="bg-[#120B07] p-8 sm:p-10 rounded-3xl border border-[#FF6B35]/20 shadow-[0_0_35px_rgba(255,107,53,0.05)] space-y-6">
+            {/* Cadence Outbox Panel */}
+            <div className="bg-[#FFFDFB] dark:bg-[#120B07] p-8 sm:p-10 rounded-3xl border border-[#FF6B35]/30 dark:border-[#FF6B35]/20 shadow-[0_0_35px_rgba(255,107,53,0.05)] space-y-6 transition-all">
               <div className="flex items-center space-x-2.5 text-[#FF6B35] font-extrabold text-xs uppercase tracking-widest font-mono">
                 <TrendingUp className="w-4 h-4 text-[#FFB84D] animate-bounce" />
-                <span>Revilo Choice: Precision Tuning</span>
+                <span>Cadence.ai: Precision Tuning</span>
               </div>
               
-              <h4 className="text-2xl font-bold text-white tracking-tight">Adaptive Smart Copywriters</h4>
+              <h4 className="text-2xl font-bold text-slate-900 dark:text-white tracking-tight">Adaptive Smart Copywriters</h4>
               
               <p className="text-xs text-slate-400 leading-relaxed">
                 Our intelligence compiles deep stakeholder insights, recent market events, and real challenges together. B2B copywriting tools adjust response rates and deliver highly consultative personalized loops natively inside your team sandbox.
@@ -437,7 +357,7 @@ export default function LandingView() {
           <div className="absolute top-0 right-0 w-32 h-32 bg-[#FF6B35]/5 rounded-full blur-2xl pointer-events-none" />
           
           <p className="text-base sm:text-lg text-slate-300 italic leading-relaxed">
-            &ldquo;Using Revilo&apos;s predictive precision tone algorithms, outbound open rates in our enterprise pipeline jumped from 14% to 54.2% within two weeks. We saved countless representative hours and secured double the actual meetings.&rdquo;
+            &ldquo;Using Cadence&apos;s predictive precision tone algorithms, outbound open rates in our enterprise pipeline jumped from 14% to 54.2% within two weeks. We saved countless representative hours and secured double the actual meetings.&rdquo;
           </p>
           
           <div className="flex items-center space-x-3 mt-8 pt-8 border-t border-white/5">
@@ -477,23 +397,20 @@ export default function LandingView() {
 
 
       {/* ------------------ 8. PREMIUM METALLIC footer nav ------------------ */}
-      <footer className="border-t border-white/5 bg-[#030100] py-16 px-6 text-center text-xs text-slate-500 relative z-25">
+      <footer className="border-t border-white/5 bg-[#030100] py-16 px-6 text-center text-xs text-slate-400 relative z-25">
         <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-8">
           <div className="flex items-center space-x-2">
-            <div className="w-7 h-7 rounded-lg bg-[#FF6B35]/25 border border-[#FF6B35]/40 flex items-center justify-center font-black text-xs text-white">
-              R
-            </div>
-            <span className="font-sans font-extrabold text-sm tracking-tight text-white">Revilo Sales AI</span>
+            <CadenceLogo textColorClass="text-white" />
           </div>
           
-          <p className="font-mono text-[10px] uppercase tracking-wider text-slate-600">
-            © 2026 Revilo Sales Inc. Powered by predictive personalizations.
+          <p className="font-mono text-[10px] uppercase tracking-wider text-slate-500">
+            © 2026 Cadence Sales Inc. Powered by predictive personalization.
           </p>
           
-          <div className="flex space-x-6 text-[10px] font-black uppercase tracking-wider">
-            <button onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} className="hover:text-slate-300 cursor-pointer transition-colors">Home</button>
-            <button onClick={() => setView("auth")} className="hover:text-slate-300 cursor-pointer transition-colors">Sign In</button>
-            <button onClick={() => scrollToSection("pricing-section-container")} className="hover:text-slate-300 cursor-pointer transition-colors">Pricing</button>
+          <div className="flex space-x-6 text-[10px] font-bold uppercase tracking-wider text-slate-500">
+            <button onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} className="hover:text-white cursor-pointer transition-colors">Home</button>
+            <button onClick={() => setView("auth")} className="hover:text-white cursor-pointer transition-colors">Console Login</button>
+            <button onClick={() => scrollToSection("pricing-section-container")} className="hover:text-white cursor-pointer transition-colors">Pricing Specs</button>
           </div>
         </div>
       </footer>
